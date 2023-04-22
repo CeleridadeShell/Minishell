@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:01:22 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/20 20:01:42 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:20:45 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,20 @@ static char	ft_expander(char *argument, char previous, char after)
 	return (value);
 }
 
-static void	ft_reswitch(char **cmd, t_global *g)
+static void	ft_reswitch(char **cmd)
 {
-	char	*temp;
 	int		pos;
-	int		i;
 
 	pos = 0;
 	while (cmd[pos])
 	{
 		ft_expander(cmd[pos], TEMP_SPACE, ' ');
-		if (ft_strchr(cmd[pos], '$') && cmd[pos][0] != '\'')
-		{
-			i = 0;
-			while (ft_strchr(&cmd[pos][i], '$') && cmd[pos][i] != '\0' )
-			{
-				temp = get_key(cmd[pos], i, g);
-				cmd[pos] = temp;
-				i++;
-			}
-		}
 		pos++;
 	}
 }
 
-char	**ft_split_pipex(char *argument, t_global *g)
+
+char	**ft_split_pipex(char *argument)
 {
 	char	**cmd;
 
@@ -70,6 +59,6 @@ char	**ft_split_pipex(char *argument, t_global *g)
 		return (NULL);
 	ft_expander(argument, ' ', TEMP_SPACE);
 	cmd = ft_split(argument, ' ');
-	ft_reswitch(cmd, g);
+	ft_reswitch(cmd);
 	return (cmd);
 }

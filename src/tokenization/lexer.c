@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:58:08 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/20 21:03:40 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:37:31 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@
  *to the linked list.
  *@return none.
  */
-t_token	*append_token(t_shell *g, t_token *token, t_token *last_token)
+t_token *append_token(t_shell *shell, t_token *token, t_token *last_token)
 {
-	t_token	*current;
+	t_token *current;
 
-	current = g->h_token;
+	current = shell->h_token;
 	while (current->next_token != NULL && last_token->type != REDIRECT)
 		current = current->next_token;
 	current->next_token = token;
 	if (token->type == WORD && last_token->type != REDIRECT)
-		g->h_token->n_cmds++;
-	g->exit_status = verify_unexpecte_token(token, last_token);
-	g->h_token->n_tokens++;
+		shell->h_token->n_cmds++;
+	shell->exit_status = verify_unexpecte_token(token, last_token);
+	shell->h_token->n_tokens++;
 	return (token);
 }
 
@@ -41,14 +41,14 @@ t_token	*append_token(t_shell *g, t_token *token, t_token *last_token)
  *@return It returns a new character pointer containing the substring from the
  *beginning of the "input" string to the first separator or white space character
  */
-char	*get_value(char **input)
+char *get_value(char **input)
 {
-	char	*value;
-	int		len;
+	char *value;
+	int len;
 
 	len = 0;
 	while ((*input)[len] && !is_separator((*input)[len]) &&
-			!is_pipe((*input[len])) && !is_redirect((*input)[len]))
+		   !is_pipe((*input[len])) && !is_redirect((*input)[len]))
 		len++;
 	if (is_whitespace((*input)[len]))
 		len++;
@@ -60,9 +60,7 @@ char	*get_value(char **input)
 	return (value);
 }
 
-
-
-int	is_symbol(char c)
+int is_symbol(char c)
 {
 	if (is_separator(c))
 		return (SEPARATOR);
@@ -84,30 +82,28 @@ int	is_symbol(char c)
  *@param input
  *@return returns a pointer to an object of type t_token
  */
-void	lexer(char *input, t_global *g)
+void lexer(char *input, t_shell *shell)
 {
-	t_token	*tmp;
-	int		holder;
+	t_token *tmp;
+	int holder;
 
-	start_tokens(&g->h_token);
-	tmp = g->h_token;
+	tmp = shell->h_token;
 	holder = is_symbol(*input);
 	while (*input)
 	{
-		if (g->exit_status != 0)
-			return (error_handler(g));
+		if (shell->exit_status != 0)
+			return (error_handler(shell));
 		holder = is_symbol(*input);
 		if (holder == WHITESPACE)
 			input++;
 		else if (holder == QUOTE)
-			input = when_quotes(g, &tmp, input);
+			input = when_quotes(shell, &tmp, input);
 		else if (holder == SEPARATOR || holder == PIPE)
-			input = when_sep_pipe(g, &tmp, input, holder);
+			input = when_sep_pipe(shell, &tmp, input, holder);
 		else if (holder == REDIRECT)
-			input = when_redirect(g, &tmp, input);
+			input = when_redirect(shell, &tmp, input);
 		else if (holder == WORD)
-			input = when_word(g, &tmp, input);
+			input = when_word(shell, &tmp, input);
 	}
-	normalize(g);
+	normalize(shell);
 }
-

@@ -6,7 +6,7 @@
 #    By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 19:31:21 by mcarecho          #+#    #+#              #
-#    Updated: 2023/04/20 19:54:17 by mcarecho         ###   ########.fr        #
+#    Updated: 2023/04/22 19:35:11 by mcarecho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,18 @@ HEADER			= minishell.h
 HEADER_PATH		= $(addprefix $(HEADER_DIR), $(HEADER))
 
 SRC_DIR			= ./src/
-SRC				= 	*.c
+SRC				=	*.c \
+					closing/*.c \
+					errors/*.c \
+					initialization/*.c \
+					signals/*.c \
+					utils/*.c \
+					tokenization/*.c
+
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
 
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g3
 CLINK			= -lft -lreadline
 
 BIN				= ./bin/

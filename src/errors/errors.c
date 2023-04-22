@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:11:33 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/20 20:11:41 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:14:48 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ int	check_input(char *input)
 	return (check);
 }
 
-void	error_handler(t_global *g)
+void	error_handler(t_shell *shell)
 {
 	t_token	*tmp;
 	char	*error;
 
-	tmp = g->h_token;
+	tmp = shell->h_token;
 	while (tmp)
 	{
 		error = tmp->value;
@@ -97,7 +97,7 @@ void	error_handler(t_global *g)
 		free(tmp->value);
 		tmp = tmp->next_token;
 	}
-	ft_printf("minishell: syntax error near unexpected token `%s'\n", error);
+	printf("minishell: syntax error near unexpected token `%s'\n", error);
 	free(error);
-	g->h_token = NULL;
+	shell->h_token = NULL;
 }

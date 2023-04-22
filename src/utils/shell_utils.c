@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:41:45 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/20 21:27:16 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/22 17:36:46 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	find_envp_field_index(t_shell *shell, const char *field)
 	return (-1);
 }
 
-void	replace_env_field(t_shell *shell, const char *field, const char *new_field)
+void	replace_env_field(t_shell *shell, const char *field, const char \
+*new_field)
 {
 	int	i;
 
