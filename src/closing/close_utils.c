@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:37:04 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/20 20:44:22 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:18:57 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,33 @@ void	free_shell(t_shell *shell)
 
 /* Free all memory allocated for the cmd struct. */
 
-void	free_cmd(t_cmd *cmd)
+void	free_token(t_token *token)
 {
-	t_list	*tmp;
 	int		i;
+	t_token	*tmp;
 
-	tmp = cmd->cmd_table;
-	while (tmp)
+	while (token)
 	{
-		ft_lstclear((t_list **) &tmp->content, free);
-		tmp = tmp->next;
+		tmp = token;
+		ft_freethis(&(token).value, NULL);
+		i = 0;
+		while (token->cmd[i])
+		{
+			ft_freethis(&token->cmd[i], NULL);
+			i++;
+		}
+		free(token->cmd);
+		token->cmd = NULL;
+		i = 0;
+		while (token->paths[i])
+		{
+			ft_freethis(&token->paths[i], NULL);
+			i++;
+		}
+		free(token->paths);
+		token->paths = NULL;
+		token = token->next_token;
+		ft_freethis(&tmp, NULL);
 	}
-	ft_lstclear(&(*cmd).cmd_table, free);
-	ft_freethis(&(*cmd).cmd_typed, NULL);
-	i = 0;
-	while (cmd->paths[i])
-	{
-		ft_freethis(&cmd->paths[i], NULL);
-		i++;
-	}
-	free(cmd->paths);
-	cmd->paths = NULL;
+	token = NULL;
 }

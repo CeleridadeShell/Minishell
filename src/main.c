@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:47:28 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/20 22:27:14 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:04:13 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 void	handle_cmd(t_shell *shell)
 {
-	t_token	cmd;
+	t_token	token;
 	char *input;
 
-	initialize_cmd(shell, &cmd);
+	start_tokens(&token, shell);
 	input = readline(shell->prompt); //Mudar como comando é lido
 	add_history(input);
 	if (!shell->exit_status)
-		execute_cmd(shell, &cmd);
-	free_cmd(&cmd);
+		execute_token(shell, &token);
+	free_token(&token);
 }
 
 int	main(int argc, char **argv, const char **envp)
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, const char **envp)
 	while (!shell.exit_status)
 	{
 		handle_signals();
-		handle_cmd(&shell);
+		handle_token(&shell);
 	}
 	printf("exit\n");
 	free_shell(&shell);
