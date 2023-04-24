@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:39:05 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/22 19:17:33 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:52:57 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,17 @@ void initialize_shell(t_shell *shell, const char **envp)
 	shell->last_status = 0;
 }
 
-void start_tokens(t_token *tokens, t_shell *shell)
+void start_tokens(t_shell *shell)
 {
 	char *env_path;
 
-	tokens = malloc(sizeof(t_token));
-	tokens->value = NULL;
-	tokens->n_cmds = 0;
-	tokens->n_tokens = 0;
+	shell->h_token = malloc(sizeof(t_token));
+	shell->h_token->value = NULL;
+	shell->h_token->n_cmds = 0;
+	shell->h_token->n_tokens = 0;
 	env_path = find_envp_field(shell, "PATH");
-	tokens->paths = ft_split(env_path, ':');
+	shell->h_token->paths = ft_split(env_path, ':');
 	ft_freethis(&env_path, NULL);
-	tokens->next_token = NULL;
-	tokens->type = SEPARATOR;
-	shell->h_token = tokens;
+	shell->h_token->next_token = NULL;
+	shell->h_token->type = SEPARATOR;
 }

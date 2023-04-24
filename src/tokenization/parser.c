@@ -35,7 +35,6 @@ t_token *parsing(t_token *token, t_shell *shell)
 	last_type = SEPARATOR;
 	while (index < token->n_cmds)
 	{
-		printf("Teste\n");
 		if (temp->type == WORD && last_type != REDIRECT)
 		{
 			temp->cmd = ft_split_pipex(temp->value);
@@ -45,6 +44,5 @@ t_token *parsing(t_token *token, t_shell *shell)
 		last_type = temp->type;
 		temp = temp->next_token;
 	}
-	free(temp);
 	return (token);
 }

@@ -15,18 +15,17 @@
 
 void handle_token(t_shell *shell)
 {
-	t_token token;
 	char *input;
 
-	start_tokens(&token, shell);
+	start_tokens(shell);
 	input = readline(shell->prompt); // Mudar como comando é lido
 	add_history(input);
 	printf("%s\n", input);
 	lexer(input, shell);
-	parsing(&token, shell);
+	parsing(shell->h_token, shell);
 	// if (!shell->exit_status)
 	// 	execute_token(shell, &token);
-	free_token(&token);
+	free_token(shell->h_token);
 }
 
 int main(int argc, char **argv, const char **envp)

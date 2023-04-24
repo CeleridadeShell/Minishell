@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/22 19:21:00 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:51:24 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		handle_signal(void);
 
 // Inicialization
 void	initialize_shell(t_shell *shell, const char **envp);
-void	start_tokens(t_token *tokens, t_shell *shell);
+void	start_tokens(t_shell *shell);
 
 // Closing
 void	free_shell(t_shell *shell);
