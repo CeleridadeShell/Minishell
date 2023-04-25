@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 19:31:21 by mcarecho          #+#    #+#              #
-#    Updated: 2023/04/22 19:35:11 by mcarecho         ###   ########.fr        #
+#    Updated: 2023/04/25 13:32:12 by ccamargo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= minishell
 
 LIBFT_DIR		= ./libs/libft/
 LIBFT 			= $(LIBFT_DIR)/libft.a
-HEADER_LIBFT	= $(LIBFT_DIR)
+HEADER_LIBFT	= $(addprefix $(LIBFT_DIR), include/)
 
 HEADER_DIR		= ./include/
 HEADER			= minishell.h
@@ -27,7 +27,8 @@ SRC				=	*.c \
 					initialization/*.c \
 					signals/*.c \
 					utils/*.c \
-					tokenization/*.c
+					tokenization/*.c \
+					builtins/*.c
 
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
 

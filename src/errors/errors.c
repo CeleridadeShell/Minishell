@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:11:33 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/22 19:14:48 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/25 16:07:02 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,12 @@ void	error_handler(t_shell *shell)
 	printf("minishell: syntax error near unexpected token `%s'\n", error);
 	free(error);
 	shell->h_token = NULL;
+}
+
+void	throw_err(/* t_shell *shell,  */char *err)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(err, 2);
+	ft_putchar_fd('\n', 2);
+	//cmd->error = 1;
 }

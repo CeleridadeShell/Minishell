@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/24 18:51:24 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/25 16:39:43 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <errno.h>
 
 // Non-native libraries
 
@@ -93,6 +94,7 @@ int	check_quotes(char *argument);
 int	is_empty(char *input);
 int	check_input(char *input);
 void	error_handler(t_shell *shell);
+void	throw_err(/* t_shell *shell,  */char *err);
 
 // Utils
 char	*find_envp_field(t_shell *shell, const char *field);
@@ -131,6 +133,13 @@ int	verify_unexpecte_token(t_token *current_token, t_token *last_token);
 // char	*is_key(char *key, char *str, int a, t_shell *shell);
 // char	*get_key(char *word, int a, t_shell *shell);
 
-
+//Builtins
+void	check_built_in(t_token *token, t_shell *shell);
+void	run_echo(t_token *token);
+void	run_cd(t_token *token, t_shell *shell);
+void	run_pwd(/* t_token *token,  */t_shell *shell);
+void	run_export(t_token *token, t_shell *shell);
+void	run_unset(t_token *token, t_shell *shell);
+void	run_env(t_shell *shell);
 
 #endif
