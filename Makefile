@@ -6,7 +6,7 @@
 #    By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 19:31:21 by mcarecho          #+#    #+#              #
-#    Updated: 2023/04/25 13:32:12 by ccamargo         ###   ########.fr        #
+#    Updated: 2023/04/25 17:20:51 by ccamargo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC				=	*.c \
 					signals/*.c \
 					utils/*.c \
 					tokenization/*.c \
-					builtins/*.c
+					builtins/*.c \
+					execution/*.c
 
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
 

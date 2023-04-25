@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/25 16:39:43 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:19:46 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,8 @@ void	run_pwd(/* t_token *token,  */t_shell *shell);
 void	run_export(t_token *token, t_shell *shell);
 void	run_unset(t_token *token, t_shell *shell);
 void	run_env(t_shell *shell);
+
+//Execution
+void	execute_token(t_shell *shell);
 
 #endif

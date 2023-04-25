@@ -20,11 +20,11 @@ void handle_token(t_shell *shell)
 	start_tokens(shell);
 	input = readline(shell->prompt); // Mudar como comando é lido
 	add_history(input);
-	printf("%s\n", input);
+	//printf("%s\n", input);
 	lexer(input, shell);
 	parsing(shell->h_token, shell);
-	// if (!shell->exit_status)
-	// 	execute_token(shell, &token);
+	if (!shell->exit_status)
+		execute_token(shell);
 	free_token(shell->h_token);
 }
 
