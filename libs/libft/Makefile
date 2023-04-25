@@ -1,10 +1,13 @@
 NAME = libft.a
 
+LIB_PATH = ./include/
 LIB = libft.h
+LIBRARIES := $(addprefix $(LIB_PATH), $(LIB))
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
+SRC_PATH = ./src/
 SRC =	ft_isalpha.c \
 		ft_isdigit.c \
 		ft_isalnum.c \
@@ -38,9 +41,8 @@ SRC =	ft_isalpha.c \
 		ft_putchar_fd.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
-		ft_putnbr_fd.c
-
-BONUS =	ft_lstnew.c \
+		ft_putnbr_fd.c \
+		ft_lstnew.c \
 		ft_lstadd_front.c \
 		ft_lstsize.c \
 		ft_lstlast.c \
@@ -48,39 +50,34 @@ BONUS =	ft_lstnew.c \
 		ft_lstdelone.c \
 		ft_lstclear.c \
 		ft_lstiter.c \
-		ft_lstmap.c
+		ft_lstmap.c \
+		ft_freethis.c \
+		ft_putnbr_base_fd.c \
+		ft_atoll.c
+SOURCES := $(addprefix $(SRC_PATH), $(SRC))
 
-ADD =	ft_freethis.c \
-		ft_putnbr_base_fd.c
-
+OBJ_PATH = ./obj/
 OBJ		= $(SRC:.c=.o)
-
-BOBJ	= $(BONUS:.c=.o)
-
-ADDOBJ	= $(ADD:.c=.o)
-
-full: $(NAME) bonus add
+OBJECTS = $(addprefix $(OBJ_PATH), $(OBJ))
 
 all: $(NAME)
 
-$(NAME): $(SRC) $(LIB)
-	$(CC) $(CFLAGS) -c $(SRC) -I .
-	ar -rc $(NAME) $(OBJ)
-
-bonus: $(BONUS) $(LIB)
-	$(CC) $(CFLAGS) -c $(BONUS) -I .
-	ar -rc $(NAME) $(BOBJ)
-
-add: $(ADD) $(LIB)
-	$(CC) $(CFLAGS) -c $(ADD) -I .
-	ar -rc $(NAME) $(ADDOBJ)
+$(NAME): $(SOURCES) $(LIBRARIES)
+	@ $(CC) $(CFLAGS) -c $(SOURCES) -I $(LIB_PATH)
+	@ ar -rc $(NAME) $(OBJ)
+	@ mkdir -p obj
+	@ mv $(OBJ) $(OBJ_PATH)
+	@ echo "Library created sucessfully!"
 
 clean:
-	rm -f $(OBJ) $(BOBJ) $(ADDOBJ)
+	@ rm -f $(OBJECTS)
+	@ rm -rf $(OBJ_PATH)
+	@ echo "Object files removed sucessfully!"
 
 fclean: clean
-	rm -f $(NAME)
+	@ rm -f $(NAME)
+	@ echo "Library removed sucessfully!"
 
 re: fclean all
 
-.PHONY: full all bonus add clean fclean re bonus
+.PHONY: all clean fclean re
