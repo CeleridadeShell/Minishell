@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:39:05 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/24 18:52:57 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:11:07 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void start_tokens(t_shell *shell)
 	shell->h_token->n_cmds = 0;
 	shell->h_token->n_tokens = 0;
 	env_path = find_envp_field(shell, "PATH");
-	shell->h_token->paths = ft_split(env_path, ':');
+	shell->paths = ft_split(env_path, ':');
 	ft_freethis(&env_path, NULL);
 	shell->h_token->next_token = NULL;
 	shell->h_token->type = SEPARATOR;

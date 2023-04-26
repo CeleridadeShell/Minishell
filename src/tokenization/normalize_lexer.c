@@ -48,7 +48,7 @@ char *when_word(t_shell *shell, t_token **tmp, char *input)
 	return (input + ft_strlen((*tmp)->value));
 }
 
-void normalize(t_shell *shell)
+void normalize(t_shell *shell, t_token *last_token)
 {
 	t_token *tmp;
 
@@ -58,15 +58,10 @@ void normalize(t_shell *shell)
 	shell->h_token->n_tokens = tmp->n_tokens;
 	free(tmp);
 	if (shell->exit_status != 0)
-		return (error_handler(shell));
+		return (unexpected_token(shell, last_token->value));
 	tmp = shell->h_token;
 	while (tmp->next_token != NULL)
 		tmp = tmp->next_token;
 	if (tmp->type == REDIRECT || tmp->type == PIPE)
-	{
-		shell->exit_status = 2;
-		free(tmp->value);
-		tmp->value = ft_strdup("newline");
-		return (error_handler(shell));
-	}
+		throw_err(shell,"syntax error near unexpected token `newline'", 2);
 }

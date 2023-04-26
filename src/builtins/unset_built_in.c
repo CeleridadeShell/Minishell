@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_built_in.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:59:29 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/25 16:56:24 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:43:43 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	clear_envp(t_shell *shell)
 	free(shell->envp);
 }
 
-void	run_unset(t_token *token, t_shell *shell)
+void	ft_unset(t_token *token, t_shell *shell)
 {
 	int		i;
 	char	**tmp_env;

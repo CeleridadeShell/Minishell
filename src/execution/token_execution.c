@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   token_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:17:44 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/25 18:02:09 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:08:33 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*form_tested_path(t_token *token, int i)
+static char	*form_tested_path(t_token *token,char *path)
 {
 	char	*tested_path;
 	char	*tested_path_tmp;
 
-	tested_path = ft_strjoin(token->paths[i], "/");
+	tested_path = ft_strjoin(path, "/");
 	tested_path_tmp = tested_path;
 	tested_path = ft_strjoin(tested_path, token->cmd[0]);
 	ft_freethis(&tested_path_tmp, NULL);
@@ -41,6 +41,10 @@ static void	run_path(t_shell *shell, t_token *token)
 		}
 		waitpid(child_pid, NULL, 0);
 	}
+	else
+	{
+		command_not_found(shell, token->cmd[0]);
+	}
 	i++;
 }
 
@@ -53,9 +57,9 @@ static void	run_sys_bin(t_shell *shell, t_token *token)
 	int		i;
 
 	i = 0;
-	while (token->paths[i])
+	while (shell->paths[i])
 	{
-		tested_path = form_tested_path(token, i);
+		tested_path = form_tested_path(token, shell->paths[i]);
 		if (!access(tested_path, F_OK))
 		{
 			child_pid = fork();
@@ -69,6 +73,8 @@ static void	run_sys_bin(t_shell *shell, t_token *token)
 		ft_freethis(&tested_path, NULL);
 		i++;
 	}
+	if (tested_path == NULL)
+		command_not_found(shell, token->cmd[0]);
 	ft_freethis(&tested_path, NULL);
 }
 
@@ -80,14 +86,13 @@ void	execute_token(t_shell *shell)
 	if (!ft_strncmp((char *) token->cmd[0], "exit", 4))
 	{
 		shell->exit_status = 1;
-		return ;
+		exit(1);
 	}
-	//check_built_in(cmd, shell);
-	/* if (!cmd->builtin)
-	{ */
+	if (check_built_in(token, shell) != 0)
+	{
 		if (!ft_strncmp(token->cmd[0], ".", 1) || !ft_strncmp(token->cmd[0], "/", 1))
 			run_path(shell, token);
 		else
 			run_sys_bin(shell, token);
-	/* } */
+	}
 }

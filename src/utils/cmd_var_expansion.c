@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:55:58 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/24 20:13:22 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:41:06 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,27 @@ static void	found_dollar_sign(t_shell *shell, t_token *token, int i)
 void	cmd_expand_var(t_token *token, t_shell *shell)
 {
 	int		i;
+	char	quote;
 
 	i = 0;
+	quote = '\0';
 	while (token->value[i])
 	{
-		if (token->value[i] == '$')
+		if(token->value[i] == '\'' && (quote == '\0' || quote == '\''))
+		{
+			if (quote == '\'')
+				quote = '\0';
+			else
+				quote = '\'';
+		}
+		else if (token->value[i] == '\"' && (quote == '\0' || quote == '\"')) {
+
+			if (quote == '\"')
+				quote = '\0';
+			else
+				quote = '\"';
+		}
+		else if (token->value[i] == '$' && quote != '\'')
 			found_dollar_sign(shell, token, i);
 		i++;
 	}

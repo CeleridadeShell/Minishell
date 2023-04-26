@@ -26,6 +26,7 @@ void handle_token(t_shell *shell)
 	if (!shell->exit_status)
 		execute_token(shell);
 	free_token(shell->h_token);
+	free_paths(shell->paths);
 }
 
 int main(int argc, char **argv, const char **envp)
@@ -38,10 +39,12 @@ int main(int argc, char **argv, const char **envp)
 		return (EXIT_FAILURE);
 	}
 	initialize_shell(&shell, envp);
-	while (!shell.exit_status)
+	while (1)
 	{
+		shell.exit_status = 0;
 		handle_signal();
 		handle_token(&shell);
+		shell.last_status = shell.exit_status;
 	}
 	printf("exit\n");
 	free_shell(&shell);

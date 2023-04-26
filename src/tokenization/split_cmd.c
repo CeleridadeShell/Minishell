@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:01:22 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/22 19:20:45 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:19:48 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,20 @@ static char	ft_expander(char *argument, char previous, char after)
 static void	ft_reswitch(char **cmd)
 {
 	int		pos;
+	char 	*temp;
 
 	pos = 0;
 	while (cmd[pos])
 	{
 		ft_expander(cmd[pos], TEMP_SPACE, ' ');
+		if (cmd[pos][0] == '\'')
+			temp = ft_strtrim(cmd[pos], "\'");
+		else if (cmd[pos][0] == '\"')
+			temp = ft_strtrim(cmd[pos], "\"");
+		else
+			temp = ft_strdup(cmd[pos]);
+		free(cmd[pos]);
+		cmd[pos] = temp;
 		pos++;
 	}
 }

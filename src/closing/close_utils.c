@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:37:04 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/24 19:21:43 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:10:59 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,24 @@ void	free_token(t_token *token)
 		}
 		free(token->cmd);
 		token->cmd = NULL;
-		i = 0;
-		while (token->paths != NULL && token->paths[i])
-		{
-			ft_freethis(&token->paths[i], NULL);
-			i++;
-		}
-		ft_freethis((char **)&token->paths, NULL);
 		token = token->next_token;
 		free(tmp);
 		tmp = NULL;
 	}
 	token = NULL;
 }
+
+void	free_paths(char **paths)
+{
+	int	i;
+
+	i = 0;
+	while (paths[i])
+	{
+		ft_freethis(&paths[i], NULL);
+		i++;
+	}
+	free(paths);
+	paths = NULL;
+}
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:11:33 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/25 16:07:02 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:34:14 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,29 +83,26 @@ int	check_input(char *input)
 	return (check);
 }
 
-void	error_handler(t_shell *shell)
+void	unexpected_token(t_shell *shell, char *token)
 {
-	t_token	*tmp;
-	char	*error;
-
-	tmp = shell->h_token;
-	while (tmp)
-	{
-		error = tmp->value;
-		if (tmp->next_token == NULL)
-			break ;
-		free(tmp->value);
-		tmp = tmp->next_token;
-	}
-	printf("minishell: syntax error near unexpected token `%s'\n", error);
-	free(error);
-	shell->h_token = NULL;
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd(token, 2);
+	ft_putstr_fd("'\n", 2);
+	shell->exit_status = 2;
 }
 
-void	throw_err(/* t_shell *shell,  */char *err)
+void	throw_err(t_shell *shell, char *err, int status)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(err, 2);
 	ft_putchar_fd('\n', 2);
-	//cmd->error = 1;
+	shell->exit_status = status;
+}
+
+void 	command_not_found(t_shell *shell, char *cmd)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": command not found\n", 2);
+	shell->exit_status = 127;
 }

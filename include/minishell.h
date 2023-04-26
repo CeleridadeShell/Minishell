@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/25 17:19:46 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:48:57 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_token
 	int				n_tokens; // number of tokens
 	char			*value; // the value of the token, eg "ls", ">", "file.txt"
 	char			**cmd; //the command split by spaces and parsed
-	char			**paths; // saves the paths of the $PATH variable in a matrix
 	struct s_token	*next_token;	// pointer to the next token
 }	t_token;
 
@@ -70,6 +69,7 @@ typedef struct s_shell
 	char	*prompt;
 	int 	exit_status;
 	int		last_status;
+	char	**paths; // saves the paths of the $PATH variable in a matrix
 	t_token			*h_token;
 }	t_shell;
 
@@ -88,13 +88,15 @@ void	start_tokens(t_shell *shell);
 // Closing
 void	free_shell(t_shell *shell);
 void	free_token(t_token *token);
+void	free_paths(char **paths);
 
 // Errors
 int	check_quotes(char *argument);
 int	is_empty(char *input);
 int	check_input(char *input);
-void	error_handler(t_shell *shell);
-void	throw_err(/* t_shell *shell,  */char *err);
+void	unexpected_token(t_shell *shell, char *token);
+void	throw_err(t_shell *shell, char *err, int status);
+void 	command_not_found(t_shell *shell, char *cmd);
 
 // Utils
 char	*find_envp_field(t_shell *shell, const char *field);
@@ -118,7 +120,7 @@ char	*when_quotes(t_shell *shell, t_token **tmp, char *input);
 char	*when_redirect(t_shell *shell, t_token **tmp, char *input);
 char	*when_sep_pipe(t_shell *shell, t_token **tmp, char *input, int holder);
 char	*when_word(t_shell *shell, t_token **tmp, char *input);
-void	normalize(t_shell *shell);
+void	normalize(t_shell *shell, t_token *tmp);
 
 char	*ft_strdup_char(char c);
 t_token	*parsing(t_token *token, t_shell *shell);
@@ -134,13 +136,13 @@ int	verify_unexpecte_token(t_token *current_token, t_token *last_token);
 // char	*get_key(char *word, int a, t_shell *shell);
 
 //Builtins
-void	check_built_in(t_token *token, t_shell *shell);
-void	run_echo(t_token *token);
-void	run_cd(t_token *token, t_shell *shell);
-void	run_pwd(/* t_token *token,  */t_shell *shell);
-void	run_export(t_token *token, t_shell *shell);
-void	run_unset(t_token *token, t_shell *shell);
-void	run_env(t_shell *shell);
+int	check_built_in(t_token *token, t_shell *shell);
+void	ft_echo(t_token *token);
+void	ft_cd(t_token *token, t_shell *shell);
+void	ft_pwd(/* t_token *token,  */t_shell *shell);
+void	ft_export(t_token *token, t_shell *shell);
+void	ft_unset(t_token *token, t_shell *shell);
+void	ft_env(t_shell *shell);
 
 //Execution
 void	execute_token(t_shell *shell);

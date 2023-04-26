@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:58:08 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/22 19:37:31 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:34:51 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void lexer(char *input, t_shell *shell)
 	while (*input)
 	{
 		if (shell->exit_status != 0)
-			return (error_handler(shell));
+			return (unexpected_token(shell, tmp->value));
 		holder = is_symbol(*input);
 		if (holder == WHITESPACE)
 			input++;
@@ -105,5 +105,5 @@ void lexer(char *input, t_shell *shell)
 		else if (holder == WORD)
 			input = when_word(shell, &tmp, input);
 	}
-	normalize(shell);
+	normalize(shell, tmp);
 }

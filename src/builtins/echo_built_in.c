@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo_built_in.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:56:31 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/25 16:17:08 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:43:25 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	run_echo(t_token *token)
+void	ft_echo(t_token *token)
 {
 	int		new_line;
 	int		i;

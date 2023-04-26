@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_built_in.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:12:37 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/25 16:37:50 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:43:33 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	realloc_env(t_shell *shell, char *env_line)
 	shell->envp = tmp_env;
 }
 
-void	run_export(t_token *token, t_shell *shell)
+void	ft_export(t_token *token, t_shell *shell)
 {
 	int	i;
 	if (token->n_cmds == 1)

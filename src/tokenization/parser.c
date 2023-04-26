@@ -37,8 +37,8 @@ t_token *parsing(t_token *token, t_shell *shell)
 	{
 		if (temp->type == WORD && last_type != REDIRECT)
 		{
-			temp->cmd = ft_split_pipex(temp->value);
 			cmd_expand_var(temp, shell);
+			temp->cmd = ft_split_pipex(temp->value);
 			index++;
 		}
 		last_type = temp->type;
