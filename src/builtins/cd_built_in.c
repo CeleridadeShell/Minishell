@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_built_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 14:13:48 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 18:57:04 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 23:19:25 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void ft_cd(t_token *token, t_shell *shell)
 {
 	char *destiny;
 
-	if (token->n_cmds > 2)
+	if (count_number_of_params(token->cmd) > 2)
 	{
 		throw_err(shell, "cd: too many arguments", 1);
 		return;
