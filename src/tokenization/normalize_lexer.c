@@ -12,18 +12,6 @@
 
 #include <minishell.h>
 
-#include <minishell.h>
-
-char *when_quotes(t_shell *shell, t_token **tmp, char *input)
-{
-	char *value;
-
-	value = NULL;
-	value = ft_strchr(input + 1, *input);
-	*tmp = append_token(shell, n_token(input, WORD, value - input + 1), *tmp);
-	return (input + ft_strlen((*tmp)->value));
-}
-
 char *when_redirect(t_shell *shell, t_token **tmp, char *input)
 {
 	if (input[1] == *input)
