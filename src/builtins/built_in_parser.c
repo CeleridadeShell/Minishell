@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 18:10:47 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 18:47:09 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 22:08:10 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	check_built_in(t_token *token, t_shell *shell)
 		ft_unset(token, shell);
 	else if (!ft_strncmp(token->cmd[0], "env", ft_strlen((char *) token->cmd[0])))
 		ft_env(/* token,  */shell);
+	else if (!ft_strncmp(token->cmd[0], "exit", ft_strlen((char *) token->cmd[0])))
+		ft_exit(token, shell);
 	else
 		i = 1;
 	return(i);

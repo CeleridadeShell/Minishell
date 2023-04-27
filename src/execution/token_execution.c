@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:17:44 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 19:08:33 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 22:40:32 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,6 @@ void	execute_token(t_shell *shell)
 	t_token	*token;
 
 	token = shell->h_token;
-	if (!ft_strncmp((char *) token->cmd[0], "exit", 4))
-	{
-		shell->exit_status = 1;
-		exit(1);
-	}
 	if (check_built_in(token, shell) != 0)
 	{
 		if (!ft_strncmp(token->cmd[0], ".", 1) || !ft_strncmp(token->cmd[0], "/", 1))
