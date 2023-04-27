@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/26 18:48:57 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:35:38 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char	*find_envp_field(t_shell *shell, const char *field);
 int	find_envp_field_index(t_shell *shell, const char *field);
 void	replace_env_field(t_shell *shell, const char *field, const char *new_field);
 void	cmd_expand_var(t_token *token, t_shell *shell);
+void remove_quotes(t_token *token, int i);
 
 // Tokenization
 int	is_redirect(char c);
@@ -116,7 +117,6 @@ char	*get_value(char **input);
 int		is_symbol(char c);
 void	lexer(char *input, t_shell *shell);
 
-char	*when_quotes(t_shell *shell, t_token **tmp, char *input);
 char	*when_redirect(t_shell *shell, t_token **tmp, char *input);
 char	*when_sep_pipe(t_shell *shell, t_token **tmp, char *input, int holder);
 char	*when_word(t_shell *shell, t_token **tmp, char *input);

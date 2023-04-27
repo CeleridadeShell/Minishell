@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:58:08 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/26 18:34:51 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:35:07 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ void lexer(char *input, t_shell *shell)
 		holder = is_symbol(*input);
 		if (holder == WHITESPACE)
 			input++;
-		else if (holder == QUOTE)
-			input = when_quotes(shell, &tmp, input);
 		else if (holder == SEPARATOR || holder == PIPE)
 			input = when_sep_pipe(shell, &tmp, input, holder);
 		else if (holder == REDIRECT)
