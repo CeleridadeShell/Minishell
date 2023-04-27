@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/26 18:48:57 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 22:39:02 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char	*find_envp_field(t_shell *shell, const char *field);
 int	find_envp_field_index(t_shell *shell, const char *field);
 void	replace_env_field(t_shell *shell, const char *field, const char *new_field);
 void	cmd_expand_var(t_token *token, t_shell *shell);
+int	count_number_of_params(char **cmd);
 
 // Tokenization
 int	is_redirect(char c);
@@ -143,6 +144,7 @@ void	ft_pwd(/* t_token *token,  */t_shell *shell);
 void	ft_export(t_token *token, t_shell *shell);
 void	ft_unset(t_token *token, t_shell *shell);
 void	ft_env(t_shell *shell);
+void	ft_exit(t_token *token, t_shell *shell);
 
 //Execution
 void	execute_token(t_shell *shell);

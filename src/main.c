@@ -46,7 +46,5 @@ int main(int argc, char **argv, const char **envp)
 		handle_token(&shell);
 		shell.last_status = shell.exit_status;
 	}
-	printf("exit\n");
-	free_shell(&shell);
 	return (0);
 }
