@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_built_in.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:12:37 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 18:43:33 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/26 23:19:41 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	realloc_env(t_shell *shell, char *env_line)
 void	ft_export(t_token *token, t_shell *shell)
 {
 	int	i;
-	if (token->n_cmds == 1)
+	if (count_number_of_params(token->cmd) == 1)
 	{
 		no_args(shell);
 		return ;
