@@ -48,7 +48,7 @@ int main(int argc, char **argv, const char **envp)
 	while (1)
 	{
 		shell.exit_status = 0;
-		handle_signal();
+		//handle_signal();
 		handle_token(&shell);
 		shell.last_status = shell.exit_status;
 	}
