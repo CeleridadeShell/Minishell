@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:55:58 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 21:34:10 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/30 22:28:03 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,18 @@ static void	search_env_vars(t_shell *shell, t_token *token, int i)
 		j = ft_strlen(token->value) - i - 1;
 	else
 		j += env_var - &token->value[i + 1];
-	env_var = ft_substr(token->value, i + 1, j);
+	found_var = ft_substr(token->value, i + 1, j);
+	env_var = ft_strtrim(found_var, "\"");
+	j = ft_strlen(env_var);
+	ft_freethis(&found_var, NULL);
 	found_var = find_envp_field(shell, env_var);
 	if (found_var == NULL)
-		found_var = ft_strdup("");
+	{
+		if(ft_strncmp(env_var, "?", 1) == 0)
+			found_var = ft_itoa(shell->last_status);
+		else
+			found_var = ft_strdup("");
+	}
 	replace_cmd_typed(token, found_var, i, j);
 	ft_freethis(&found_var, NULL);
 }
