@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:58:08 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/26 21:35:07 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/01 19:02:00 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_token *append_token(t_shell *shell, t_token *token, t_token *last_token)
 	t_token *current;
 
 	current = shell->h_token;
-	while (current->next_token != NULL && last_token->type != REDIRECT)
+	while (current->next_token != NULL)
 		current = current->next_token;
 	current->next_token = token;
 	if (token->type == WORD && last_token->type != REDIRECT)
