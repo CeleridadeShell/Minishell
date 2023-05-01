@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:17:44 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/01 17:26:38 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/01 17:37:50 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,15 +134,15 @@ void	execute_token(t_shell *shell)
 				else
 				{
 					wait(NULL);
-					if (fd_in != 0)
-					{
-						close(fd_in);
-					}
-					close(fd[1]);
-					fd_in = fd[0];
-					cmd_i++;
 				}
 			}
+			if (fd_in != 0)
+			{
+				close(fd_in);
+			}
+			fd_in = fd[0];
+			close(fd[1]);
+			cmd_i++;
 		}
 		token = token->next_token;
     }
