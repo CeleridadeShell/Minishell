@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:39:05 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 18:11:07 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/30 21:48:14 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ void start_tokens(t_shell *shell)
 	ft_freethis(&env_path, NULL);
 	shell->h_token->next_token = NULL;
 	shell->h_token->type = SEPARATOR;
+	shell->h_token->cmd = NULL;
 }

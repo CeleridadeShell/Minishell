@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:19:33 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/20 20:19:41 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/30 21:33:53 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ void	handle_signal(void)
 	struct sigaction	sig_quit;
 
 	sig_int.sa_handler = &sigint_handler;
-	sig_int.sa_flags = 0;
+	sig_int.sa_flags = SA_RESTART;
 	sigemptyset(&sig_int.sa_mask);
 	sigaction(SIGINT, &sig_int, NULL);
 	sig_quit.sa_handler = SIG_IGN;
-	sig_quit.sa_flags = 0;
+	sig_quit.sa_flags = SA_RESTART;
 	sigemptyset(&sig_quit.sa_mask);
 	sigaction(SIGQUIT, &sig_quit, NULL);
 }

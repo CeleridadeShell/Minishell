@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:37:04 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 18:10:59 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/30 21:45:46 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /* readline() function causes leaks on its own. */
 /* Free all memory allocated for the shell struct. */
 
-void	free_shell(t_shell *shell)
+void free_shell(t_shell *shell)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (shell->envp[i])
@@ -31,26 +31,27 @@ void	free_shell(t_shell *shell)
 	rl_clear_history();
 }
 
-
 /* Free all memory allocated for the cmd struct. */
 
-void	free_token(t_token *token)
+void free_token(t_token *token)
 {
-	int		i;
-	t_token	*tmp;
+	int i;
+	t_token *tmp;
 
 	while (token)
 	{
 		tmp = token;
 		ft_freethis(&(token)->value, NULL);
 		i = 0;
-		while (token->cmd[i])
+		if (token->cmd)
 		{
-			ft_freethis(&token->cmd[i], NULL);
-			i++;
+			while (token->cmd != NULL && token->cmd[i])
+			{
+				ft_freethis(&token->cmd[i], NULL);
+				i++;
+			}
+			ft_freethis((char **)&token->cmd, NULL);
 		}
-		free(token->cmd);
-		token->cmd = NULL;
 		token = token->next_token;
 		free(tmp);
 		tmp = NULL;
@@ -58,9 +59,9 @@ void	free_token(t_token *token)
 	token = NULL;
 }
 
-void	free_paths(char **paths)
+void free_paths(char **paths)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (paths[i])
@@ -71,4 +72,3 @@ void	free_paths(char **paths)
 	free(paths);
 	paths = NULL;
 }
-
