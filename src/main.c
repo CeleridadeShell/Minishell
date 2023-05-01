@@ -20,7 +20,13 @@ void handle_token(t_shell *shell)
 	start_tokens(shell);
 	input = readline(shell->prompt); // Mudar como comando é lido
 	add_history(input);
-	//printf("%s\n", input);
+	if (!input)
+	{
+		free_token(shell->h_token);
+		free_paths(shell->paths);
+		free_shell(shell);
+		exit(0);
+	}
 	lexer(input, shell);
 	parsing(shell->h_token, shell);
 	if (!shell->exit_status)
@@ -46,5 +52,7 @@ int main(int argc, char **argv, const char **envp)
 		handle_token(&shell);
 		shell.last_status = shell.exit_status;
 	}
+	printf("exit\n");
+	free_shell(&shell);
 	return (0);
 }
