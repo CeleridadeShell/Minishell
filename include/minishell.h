@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/26 23:00:31 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:44:46 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <errno.h>
+# include <fcntl.h>
 
 // Non-native libraries
 

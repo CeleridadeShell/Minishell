@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:17:44 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/01 17:44:30 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:49:31 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,12 @@ static char	*form_tested_path(t_token *token,char *path)
 
 static void	run_path(t_shell *shell, t_token *token)
 {
-//	int		child_pid;
 	int		i;
 
 	i = 0;
 	if (!access(token->cmd[0], F_OK))
 	{
-/* 		child_pid = fork();
-		if (child_pid == 0)
-		{ */
-			execve(token->cmd[0], token->cmd, shell->envp);
-/* 		}
-		waitpid(child_pid, NULL, 0); */
+		execve(token->cmd[0], token->cmd, shell->envp);
 	}
 	else
 	{
@@ -53,7 +47,6 @@ static void	run_path(t_shell *shell, t_token *token)
 static void	run_sys_bin(t_shell *shell, t_token *token)
 {
 	char	*tested_path;
-//	int		child_pid;
 	int		i;
 
 	i = 0;
@@ -62,12 +55,7 @@ static void	run_sys_bin(t_shell *shell, t_token *token)
 		tested_path = form_tested_path(token, shell->paths[i]);
 		if (!access(tested_path, F_OK))
 		{
-/* 			child_pid = fork();
-			if (child_pid == 0)
-			{ */
-				execve(tested_path, token->cmd, shell->envp);
-/* 			}
-			waitpid(child_pid, NULL, 0); */
+			execve(tested_path, token->cmd, shell->envp);
 			break ;
 		}
 		ft_freethis(&tested_path, NULL);
@@ -90,11 +78,56 @@ void	execute_token(t_shell *shell)
 	cmd_i = 0;
 	fd_original[0] = dup(STDIN_FILENO);
 	fd_original[1] = dup(STDOUT_FILENO);
+	int		fd_file = -1;
+
+
+
+
 	while (cmd_i < shell->h_token->n_cmds)
     {
 		if (token->type == WORD)
 		{
+			t_token	*tmp;
 
+			tmp = token->next_token;
+			while (tmp->type != PIPE && tmp)
+			{
+				if (tmp->type == REDIRECT && ft_strncmp(tmp->cmd[0], ">", ft_strlen(tmp->value)))
+				{
+					tmp = tmp->next_token;
+					if (fd_file != -1)
+					{
+						close(fd_file);
+					}
+					fd_file = open(tmp->cmd[0], O_WRONLY | O_CREAT | O_TRUNC, 0666);
+					if (fd_file == -1) {
+						perror("open() failed");
+						exit(EXIT_FAILURE);
+					}
+					/* dup2(fd, STDOUT_FILENO);
+					close(fd); */
+				}
+				else if (tmp->type == REDIRECT && ft_strncmp(tmp->cmd[0], ">>", ft_strlen(tmp->value)))
+				{
+					tmp = tmp->next_token;
+					if (fd_file != -1)
+					{
+						close(fd_file);
+					}
+					fd_file = open(tmp->cmd[0], O_WRONLY | O_CREAT | O_APPEND, 0666);
+					if (fd_file == -1)
+					{
+						perror("open() failed");
+						exit(EXIT_FAILURE);
+					}
+					/* dup2(fd, STDOUT_FILENO);
+					close(fd); */
+        		}
+				tmp = tmp->next_token;
+			}
+
+
+			/* func_pipe */
 			pipe(fd);
 			if (fd_in != 0)
 			{
@@ -103,7 +136,11 @@ void	execute_token(t_shell *shell)
 					printf("Deu bosta!\n");
 				}
 			}
-			if (token->next_token == NULL)
+			if (fd_file != -1)
+			{
+				dup2(fd_file, STDOUT_FILENO);
+			}
+			else if (token->next_token == NULL)
 			{
 				if (dup2(fd_original[1], STDOUT_FILENO) == -1)
 				{
@@ -117,6 +154,9 @@ void	execute_token(t_shell *shell)
 					printf("Deu bosta!\n");
 				}
 			}
+
+
+
 			if (check_built_in(token, shell) != 0)
 			{
 				pid = fork();
@@ -153,8 +193,4 @@ void	execute_token(t_shell *shell)
 	{
 		printf("Deu bosta!\n");
 	}
-	/* if (token->n_cmds == cmd_i)
-	{
-		dup2(fd_original[0], STDIN_FILENO);
-	} */
 }
