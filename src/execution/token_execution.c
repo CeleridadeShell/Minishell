@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:17:44 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/01 17:37:50 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/01 17:44:30 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,15 @@ void	execute_token(t_shell *shell)
  	pid_t	pid;
  	int		fd_in = 0;
 	int		cmd_i;
-
 	token = shell->h_token;
 	cmd_i = 0;
 	fd_original[0] = dup(STDIN_FILENO);
 	fd_original[1] = dup(STDOUT_FILENO);
-	while (token)
+	while (cmd_i < shell->h_token->n_cmds)
     {
 		if (token->type == WORD)
 		{
+
 			pipe(fd);
 			if (fd_in != 0)
 			{
@@ -143,6 +143,9 @@ void	execute_token(t_shell *shell)
 			fd_in = fd[0];
 			close(fd[1]);
 			cmd_i++;
+		}
+		else if (token->type == REDIRECT) {
+			token = token->next_token;
 		}
 		token = token->next_token;
     }
