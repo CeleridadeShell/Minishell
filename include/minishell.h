@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/01 18:44:46 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:17:07 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,16 @@ typedef struct s_shell
 	char	**paths; // saves the paths of the $PATH variable in a matrix
 	t_token			*h_token;
 }	t_shell;
+
+typedef struct s_token_execution
+{
+	t_token	*token;
+	int		fd[2];
+	int		fd_original[2];
+	int		fd_in;
+	int		cmd_i;
+	int		fd_file;
+}	t_tk_exec;
 
 
 // Functions
@@ -149,5 +159,11 @@ void	ft_exit(t_token *token, t_shell *shell);
 
 //Execution
 void	execute_token(t_shell *shell);
+void	close_custom(int *fd);
+void	redirect_outfile(t_tk_exec *exec_vars);
+void	run_command(t_tk_exec *exec_vars, t_shell *shell);
+void	set_fd_variables(t_tk_exec *exec_vars);
+void	set_io_redirection(t_tk_exec *exec_vars);
+void	init_exec_vars(t_tk_exec *exec_vars, t_shell *shell);
 
 #endif
