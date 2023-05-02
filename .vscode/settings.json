@@ -2,6 +2,7 @@
 	"C_Cpp.errorSquiggles": "disabled",
 	"files.associations": {
 		"*.js": "javascriptreact",
-		"*.tcc": "c"
+		"*.tcc": "c",
+		"minishell.h": "c"
 	}
 }
