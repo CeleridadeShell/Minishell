@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_built_in.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:59:29 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 18:43:43 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:00:38 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,4 @@ void	ft_unset(t_token *token, t_shell *shell)
 		shell->envp = tmp_env;
 		i++;
 	}
-	//cmd->builtin = 1;
 }

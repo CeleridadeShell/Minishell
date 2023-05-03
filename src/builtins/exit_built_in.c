@@ -6,11 +6,11 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:57:33 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 22:40:39 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:59:09 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <minishell.h>
+#include <minishell.h>
 
 static int	is_n_numeric(char *n)
 {
@@ -22,7 +22,7 @@ static int	is_n_numeric(char *n)
 		if (ft_isdigit(n[i]))
 			i++;
 		else
-			return(0);
+			return (0);
 	}
 	return (1);
 }
@@ -37,7 +37,8 @@ void	ft_exit(t_token *token, t_shell *shell)
 	}
 	else if (token->cmd[1] && !is_n_numeric(token->cmd[1]))
 	{
-		printf("minishell: exit: %s: numeric argument required\n", token->cmd[1]);
+		printf("minishell: exit: %s: numeric argument required\n", \
+		token->cmd[1]);
 		shell->exit_status = 2;
 	}
 	else if (token->cmd[1])

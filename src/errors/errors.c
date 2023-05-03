@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:11:33 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/26 18:34:14 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:03:43 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-/**
-*@brief Checks the string for quotes
-*@param argument the string to be checked
-*@return -1 if not closed, 0 if closed.
-*/
-int	check_quotes(char *argument)
-{
-	int		index;
-	char	quote;
-
-	index = 0;
-	while (argument[index])
-	{
-		if (argument[index] == '\'' || argument[index] == '\"')
-		{
-			quote = argument[index];
-			while (argument[index] && argument[index] != quote)
-				index++;
-			if (argument[index] != quote)
-			{
-				ft_putendl_fd("Error: Unmatched quotes.", 2);
-				return (-1);
-			}
-		}
-		index++;
-	}
-	return (0);
-}
 
 /**
 *@brief Checks input is empty
@@ -99,7 +70,7 @@ void	throw_err(t_shell *shell, char *err, int status)
 	shell->exit_status = status;
 }
 
-void 	command_not_found(t_shell *shell, char *cmd)
+void	command_not_found(t_shell *shell, char *cmd)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);

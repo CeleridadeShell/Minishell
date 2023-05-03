@@ -6,13 +6,13 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 14:13:48 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 23:19:25 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:51:52 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void throw_err_cd(/* t_shell *shell,  */ char *err)
+static void	throw_err_cd(char *err)
 {
 	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(err, 2);
@@ -22,11 +22,11 @@ static void throw_err_cd(/* t_shell *shell,  */ char *err)
 	// cmd->error = 1; Qual seria a variável equivalente?
 }
 
-static void update_workdir(t_shell *shell)
+static void	update_workdir(t_shell *shell)
 {
-	char *current_pwd;
-	char *tmp;
-	int i;
+	char	*current_pwd;
+	char	*tmp;
+	int		i;
 
 	i = find_envp_field_index(shell, "PWD");
 	current_pwd = ft_strdup(shell->envp[i]);
@@ -42,14 +42,14 @@ static void update_workdir(t_shell *shell)
 	ft_freethis(&current_pwd, NULL);
 }
 
-void ft_cd(t_token *token, t_shell *shell)
+void	ft_cd(t_token *token, t_shell *shell)
 {
-	char *destiny;
+	char	*destiny;
 
 	if (count_number_of_params(token->cmd) > 2)
 	{
 		throw_err(shell, "cd: too many arguments", 1);
-		return;
+		return ;
 	}
 	if (!token->cmd[1])
 		destiny = find_envp_field(shell, "HOME");
@@ -60,7 +60,6 @@ void ft_cd(t_token *token, t_shell *shell)
 	if (!chdir(destiny))
 		update_workdir(shell);
 	else
-		throw_err_cd(/* shell ,*/ destiny);
+		throw_err_cd(destiny);
 	ft_freethis(&destiny, NULL);
-	// cmd->builtin = 1;
 }

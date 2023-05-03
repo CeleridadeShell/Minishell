@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 19:58:11 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/22 19:41:1:02 by mcarecho         ###   ########.fr       */
+/*   Created: 2023/05/03 19:08:57 by ccamargo          #+#    #+#             */
+/*   Updated: 2023/05/03 19:08:59 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char *ft_strdup_char(char c)
+char	*ft_strdup_char(char c)
 {
-	char *str;
+	char	*str;
 
 	str = (char *)malloc(sizeof(char) * 2);
 	if (!str)
@@ -24,11 +24,11 @@ char *ft_strdup_char(char c)
 	return (str);
 }
 
-t_token *parsing(t_token *token, t_shell *shell)
+t_token	*parsing(t_token *token, t_shell *shell)
 {
-	t_token *temp;
-	t_type_t last_type;
-	int index;
+	t_token		*temp;
+	t_type_t	last_type;
+	int			index;
 
 	index = 0;
 	temp = token;

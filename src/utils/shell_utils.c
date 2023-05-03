@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:41:45 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 21:33:07 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:15:44 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ void	replace_env_field(t_shell *shell, const char *field, const char \
 	shell->envp[i] = ft_strdup(new_field);
 }
 
-void remove_quotes(t_token *token, int i)
+void	remove_quotes(t_token *token, int i)
 {
-	char *temp;
-	char *temp2;
-	char *temp3;
-	int second_quote;
+	char	*temp;
+	char	*temp2;
+	char	*temp3;
+	int		second_quote;
 
 	second_quote = ft_strchr(&token->value[i + 2], '"') - &token->value[i + 2];
 	temp = ft_substr(token->value, 0, i + 1);
@@ -84,7 +84,8 @@ void remove_quotes(t_token *token, int i)
 	temp3 = ft_strjoin(temp, temp2);
 	ft_freethis(&temp, NULL);
 	ft_freethis(&temp2, NULL);
-	temp = ft_substr(token->value, i + second_quote + 3, ft_strlen(token->value));
+	temp = ft_substr(token->value, i + second_quote + 3, \
+	ft_strlen(token->value));
 	ft_freethis(&token->value, NULL);
 	token->value = ft_strjoin(temp3, temp);
 	ft_freethis(&temp, NULL);

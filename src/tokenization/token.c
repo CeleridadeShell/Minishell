@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:10:07 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/26 18:37:21 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:12:57 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,3 @@ int	verify_unexpecte_token(t_token *current_token, t_token *last_token)
 	else
 		return (0);
 }
-

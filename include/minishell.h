@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/02 17:17:07 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:03:16 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 // Non-native libraries
 
 # include <libft.h>
-
 
 // Define
 
@@ -68,10 +67,10 @@ typedef struct s_shell
 {
 	char	**envp;
 	char	*prompt;
-	int 	exit_status;
+	int		exit_status;
 	int		last_status;
 	char	**paths; // saves the paths of the $PATH variable in a matrix
-	t_token			*h_token;
+	t_token	*h_token;
 }	t_shell;
 
 typedef struct s_token_execution
@@ -84,13 +83,10 @@ typedef struct s_token_execution
 	int		fd_file;
 }	t_tk_exec;
 
-
 // Functions
-
-
 // signals
-void		handle_signal_child(void);
-void		handle_signal(void);
+void	handle_signal_child(void);
+void	handle_signal(void);
 
 // Inicialization
 void	initialize_shell(t_shell *shell, const char **envp);
@@ -102,27 +98,28 @@ void	free_token(t_token *token);
 void	free_paths(char **paths);
 
 // Errors
-int	check_quotes(char *argument);
-int	is_empty(char *input);
-int	check_input(char *input);
+int		check_quotes(char *argument);
+int		is_empty(char *input);
+int		check_input(char *input);
 void	unexpected_token(t_shell *shell, char *token);
 void	throw_err(t_shell *shell, char *err, int status);
-void 	command_not_found(t_shell *shell, char *cmd);
+void	command_not_found(t_shell *shell, char *cmd);
 
 // Utils
 char	*find_envp_field(t_shell *shell, const char *field);
-int	find_envp_field_index(t_shell *shell, const char *field);
-void	replace_env_field(t_shell *shell, const char *field, const char *new_field);
+int		find_envp_field_index(t_shell *shell, const char *field);
+void	replace_env_field(t_shell *shell, const char *field, \
+const char *new_field);
 void	cmd_expand_var(t_token *token, t_shell *shell);
-int	count_number_of_params(char **cmd);
-void remove_quotes(t_token *token, int i);
+int		count_number_of_params(char **cmd);
+void	remove_quotes(t_token *token, int i);
 
 // Tokenization
-int	is_redirect(char c);
-int	is_pipe(char c);
-int	is_quote(char c);
-int	is_whitespace(char c);
-int	is_separator(char c);
+int		is_redirect(char c);
+int		is_pipe(char c);
+int		is_quote(char c);
+int		is_whitespace(char c);
+int		is_separator(char c);
 
 t_token	*append_token(t_shell *g, t_token *token, t_token *last_token);
 char	*get_value(char **input);
@@ -140,7 +137,7 @@ char	**ft_split_pipex(char *argument);
 
 t_token	*get_next_token(char *input, int end_pos);
 t_token	*n_token(char *value, int type, int size);
-int	verify_unexpecte_token(t_token *current_token, t_token *last_token);
+int		verify_unexpecte_token(t_token *current_token, t_token *last_token);
 
 // char	*get_env(t_mini_env *env, char *key);
 // char	*sub_error_n(char *str, char *key, int a, t_shell *shell);
@@ -148,10 +145,10 @@ int	verify_unexpecte_token(t_token *current_token, t_token *last_token);
 // char	*get_key(char *word, int a, t_shell *shell);
 
 //Builtins
-int	check_built_in(t_token *token, t_shell *shell);
+int		check_built_in(t_token *token, t_shell *shell);
 void	ft_echo(t_token *token);
 void	ft_cd(t_token *token, t_shell *shell);
-void	ft_pwd(/* t_token *token,  */t_shell *shell);
+void	ft_pwd(t_shell *shell);
 void	ft_export(t_token *token, t_shell *shell);
 void	ft_unset(t_token *token, t_shell *shell);
 void	ft_env(t_shell *shell);
