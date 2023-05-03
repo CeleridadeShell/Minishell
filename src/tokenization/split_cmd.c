@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:01:22 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/26 19:19:48 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:12:40 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <minishell.h>
 
@@ -41,7 +40,7 @@ static char	ft_expander(char *argument, char previous, char after)
 static void	ft_reswitch(char **cmd)
 {
 	int		pos;
-	char 	*temp;
+	char	*temp;
 
 	pos = 0;
 	while (cmd[pos])
@@ -58,7 +57,6 @@ static void	ft_reswitch(char **cmd)
 		pos++;
 	}
 }
-
 
 char	**ft_split_pipex(char *argument)
 {

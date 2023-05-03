@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:37:04 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/30 21:45:46 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:01:20 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /* readline() function causes leaks on its own. */
 /* Free all memory allocated for the shell struct. */
 
-void free_shell(t_shell *shell)
+void	free_shell(t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (shell->envp[i])
@@ -33,10 +33,10 @@ void free_shell(t_shell *shell)
 
 /* Free all memory allocated for the cmd struct. */
 
-void free_token(t_token *token)
+void	free_token(t_token *token)
 {
-	int i;
-	t_token *tmp;
+	int		i;
+	t_token	*tmp;
 
 	while (token)
 	{
@@ -59,9 +59,9 @@ void free_token(t_token *token)
 	token = NULL;
 }
 
-void free_paths(char **paths)
+void	free_paths(char **paths)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (paths[i])

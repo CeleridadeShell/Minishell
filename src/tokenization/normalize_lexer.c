@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   normalize_lexer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 20:06:16 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/22 19:39:104 by mcarecho         ###   ########.fr       */
+/*   Created: 2023/05/03 19:07:11 by ccamargo          #+#    #+#             */
+/*   Updated: 2023/05/03 19:08:13 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char *when_redirect(t_shell *shell, t_token **tmp, char *input)
+char	*when_redirect(t_shell *shell, t_token **tmp, char *input)
 {
 	if (input[1] == *input)
 		*tmp = append_token(shell, n_token(input, REDIRECT, 2), *tmp);
@@ -23,22 +23,22 @@ char *when_redirect(t_shell *shell, t_token **tmp, char *input)
 	return (input + ft_strlen((*tmp)->value));
 }
 
-char *when_sep_pipe(t_shell *shell, t_token **tmp, char *input, int holder)
+char	*when_sep_pipe(t_shell *shell, t_token **tmp, char *input, int holder)
 {
 	*tmp = append_token(shell, n_token(input, holder, 1), *tmp);
 	input++;
 	return (input);
 }
 
-char *when_word(t_shell *shell, t_token **tmp, char *input)
+char	*when_word(t_shell *shell, t_token **tmp, char *input)
 {
 	*tmp = append_token(shell, get_next_token(input, 0), *tmp);
 	return (input + ft_strlen((*tmp)->value));
 }
 
-void normalize(t_shell *shell, t_token *last_token)
+void	normalize(t_shell *shell, t_token *last_token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = shell->h_token;
 	shell->h_token = shell->h_token->next_token;
@@ -51,5 +51,5 @@ void normalize(t_shell *shell, t_token *last_token)
 	while (tmp->next_token != NULL)
 		tmp = tmp->next_token;
 	if (tmp->type == REDIRECT || tmp->type == PIPE)
-		throw_err(shell,"syntax error near unexpected token `newline'", 2);
+		throw_err(shell, "syntax error near unexpected token `newline'", 2);
 }

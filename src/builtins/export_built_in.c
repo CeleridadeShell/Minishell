@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:12:37 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 23:19:41 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:59:48 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	no_args(t_shell *shell)
 	}
 }
 
-static int	is_arg_valid(/* t_shell *shell,  */char *arg)
+static int	is_arg_valid(char *arg)
 {
 	int	equals;
 	int	i;
@@ -39,7 +39,6 @@ static int	is_arg_valid(/* t_shell *shell,  */char *arg)
 			ft_putstr_fd("minishell: export: '", 2);
 			ft_putchar_fd(arg[i], 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
-			//cmd->error = 1;
 			return (0);
 		}
 		if (arg[i] == '=')
@@ -83,6 +82,7 @@ static void	realloc_env(t_shell *shell, char *env_line)
 void	ft_export(t_token *token, t_shell *shell)
 {
 	int	i;
+
 	if (count_number_of_params(token->cmd) == 1)
 	{
 		no_args(shell);
@@ -91,11 +91,10 @@ void	ft_export(t_token *token, t_shell *shell)
 	i = 1;
 	while (token->cmd[i])
 	{
-		if (is_arg_valid(/* shell, */ token->cmd[i]))
+		if (is_arg_valid(token->cmd[i]))
 		{
 			realloc_env(shell, token->cmd[i]);
 		}
 		i++;
 	}
-	//cmd->builtin = 1;
 }

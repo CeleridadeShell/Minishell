@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:39:05 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/30 21:48:14 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:05:26 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 /* Initialize shell variables. */
 
-void initialize_shell(t_shell *shell, const char **envp)
+void	initialize_shell(t_shell *shell, const char **envp)
 {
-	int line_count;
-	char *user;
-	int i;
+	int		line_count;
+	char	*user;
+	int		i;
 
 	line_count = 0;
 	i = 0;
@@ -39,9 +39,9 @@ void initialize_shell(t_shell *shell, const char **envp)
 	shell->last_status = 0;
 }
 
-void start_tokens(t_shell *shell)
+void	start_tokens(t_shell *shell)
 {
-	char *env_path;
+	char	*env_path;
 
 	shell->h_token = malloc(sizeof(t_token));
 	shell->h_token->value = NULL;

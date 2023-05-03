@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:58:08 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/01 19:02:00 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:06:46 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
  *to the linked list.
  *@return none.
  */
-t_token *append_token(t_shell *shell, t_token *token, t_token *last_token)
+t_token	*append_token(t_shell *shell, t_token *token, t_token *last_token)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = shell->h_token;
 	while (current->next_token != NULL)
@@ -41,14 +41,14 @@ t_token *append_token(t_shell *shell, t_token *token, t_token *last_token)
  *@return It returns a new character pointer containing the substring from the
  *beginning of the "input" string to the first separator or white space character
  */
-char *get_value(char **input)
+char	*get_value(char **input)
 {
-	char *value;
-	int len;
+	char	*value;
+	int		len;
 
 	len = 0;
-	while ((*input)[len] && !is_separator((*input)[len]) &&
-		   !is_pipe((*input[len])) && !is_redirect((*input)[len]))
+	while ((*input)[len] && !is_separator((*input)[len]) && \
+	!is_pipe((*input[len])) && !is_redirect((*input)[len]))
 		len++;
 	if (is_whitespace((*input)[len]))
 		len++;
@@ -60,7 +60,7 @@ char *get_value(char **input)
 	return (value);
 }
 
-int is_symbol(char c)
+int	is_symbol(char c)
 {
 	if (is_separator(c))
 		return (SEPARATOR);
@@ -82,10 +82,10 @@ int is_symbol(char c)
  *@param input
  *@return returns a pointer to an object of type t_token
  */
-void lexer(char *input, t_shell *shell)
+void	lexer(char *input, t_shell *shell)
 {
-	t_token *tmp;
-	int holder;
+	t_token	*tmp;
+	int		holder;
 
 	tmp = shell->h_token;
 	holder = is_symbol(*input);

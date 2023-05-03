@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 19:47:28 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/22 19:35:058 by mcarecho         ###   ########.fr       */
+/*   Created: 2023/05/03 18:36:18 by ccamargo          #+#    #+#             */
+/*   Updated: 2023/05/03 18:36:27 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <minishell.h>
 
-void handle_token(t_shell *shell)
+void	handle_token(t_shell *shell)
 {
-	char *input;
+	char	*input;
 
 	start_tokens(shell);
 	input = readline(shell->prompt); // Mudar como comando é lido
@@ -35,9 +35,9 @@ void handle_token(t_shell *shell)
 	free_paths(shell->paths);
 }
 
-int main(int argc, char **argv, const char **envp)
+int	main(int argc, char **argv, const char **envp)
 {
-	t_shell shell;
+	t_shell	shell;
 
 	if (argv && argc > 1)
 	{

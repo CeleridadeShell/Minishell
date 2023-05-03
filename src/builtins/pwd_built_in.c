@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_built_in.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:54:49 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 18:43:37 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:00:24 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_pwd(/* t_token *token,  */t_shell *shell)
+void	ft_pwd(t_shell *shell)
 {
 	char	*found_field;
 	char	*found_field_no_extra_slash;
@@ -23,5 +23,4 @@ void	ft_pwd(/* t_token *token,  */t_shell *shell)
 	printf("%s\n", found_field_no_extra_slash);
 	ft_freethis(&found_field, NULL);
 	ft_freethis(&found_field_no_extra_slash, NULL);
-	//cmd->builtin = 1;
 }
