@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_infile.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 20:01:48 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/03 21:24:09 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:34:55 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void open_infile(t_token *token, int *fd_file)
+void	open_infile(t_token *token, int *fd_file)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = token->next_token;
 	close_custom(fd_file);
@@ -26,10 +26,11 @@ void open_infile(t_token *token, int *fd_file)
 	}
 }
 
-void heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
+void	heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
 {
-	pid_t pid;
-	t_token *tmp;
+	pid_t	pid;
+	t_token	*tmp;
+	char	*r;
 
 	tmp = token->next_token;
 	pid = fork();
@@ -40,7 +41,6 @@ void heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
 	}
 	else if (pid == 0)
 	{
-		char *r;
 		unlink(".tmp");
 		exec_vars->fd_heredoc = open(".tmp", O_RDWR | O_CREAT, 0777);
 		dup2(exec_vars->fd_original[0], STDIN_FILENO);
@@ -78,9 +78,9 @@ void heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
 	}
 }
 
-void redirect_infile(t_tk_exec *exec_vars, t_shell *shell)
+void	redirect_infile(t_tk_exec *exec_vars, t_shell *shell)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = exec_vars->token->next_token;
 	while (tmp && tmp->type != PIPE)

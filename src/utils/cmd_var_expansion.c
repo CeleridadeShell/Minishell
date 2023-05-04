@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_var_expansion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:55:58 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 20:49:54 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:29:59 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void replace_cmd_typed(char **str, char *found_var, int i, int j)
+static void	replace_cmd_typed(char **str, char *found_var, int i, int j)
 {
-	char *str_part1;
-	char *str_part2;
-	char *tmp_cmd_typed;
+	char	*str_part1;
+	char	*str_part2;
+	char	*tmp_cmd_typed;
 
 	str_part1 = ft_substr(*str, 0, i);
 	str_part2 = ft_substr(*str, i + j + 1, ft_strlen(*str));
@@ -28,11 +28,11 @@ static void replace_cmd_typed(char **str, char *found_var, int i, int j)
 	ft_freethis(&str_part2, NULL);
 }
 
-static void search_env_vars(char **str, t_shell *shell, int i)
+static void	search_env_vars(char **str, t_shell *shell, int i)
 {
-	char *env_var;
-	char *found_var;
-	int j;
+	char	*env_var;
+	char	*found_var;
+	int		j;
 
 	j = 0;
 	found_var = NULL;
@@ -57,10 +57,10 @@ static void search_env_vars(char **str, t_shell *shell, int i)
 	ft_freethis(&found_var, NULL);
 }
 
-static void remove_dollar_sign(char **str, int i)
+static void	remove_dollar_sign(char **str, int i)
 {
-	char *str_part1;
-	char *str_part2;
+	char	*str_part1;
+	char	*str_part2;
 
 	while (str[0][i])
 	{
@@ -75,7 +75,7 @@ static void remove_dollar_sign(char **str, int i)
 	}
 }
 
-static void found_dollar_sign(t_shell *shell, char **str, int i, char quote)
+void	found_dollar_sign(t_shell *shell, char **str, int i, char quote)
 {
 	if ((str[0][i + 1] == '\'' || str[0][i + 1] == '\"'))
 	{
@@ -84,45 +84,16 @@ static void found_dollar_sign(t_shell *shell, char **str, int i, char quote)
 		else if (str[0][i + 1] == '\"' && quote == '\0')
 			remove_quotes(str, i);
 		else if (str[0][i + 1] == '\"' && quote == '\"')
-			return;
+			return ;
 	}
 	else
 		search_env_vars(str, shell, i);
 }
 
-void cmd_expand_str(char *str, t_shell *shell)
+void	cmd_expand_var(t_token *token, t_shell *shell)
 {
-	int i;
-	char quote;
-
-	i = 0;
-	quote = '\0';
-	while (str[i])
-	{
-		if (str[i] == '\'' && (quote == '\0' || quote == '\''))
-		{
-			if (quote == '\'')
-				quote = '\0';
-			else
-				quote = '\'';
-		}
-		else if (str[i] == '\"' && (quote == '\0' || quote == '\"'))
-		{
-			if (quote == '\"')
-				quote = '\0';
-			else
-				quote = '\"';
-		}
-		else if (str[i] == '$' && quote != '\'')
-			found_dollar_sign(shell, &str, i, quote);
-		i++;
-	}
-}
-
-void cmd_expand_var(t_token *token, t_shell *shell)
-{
-	int i;
-	char quote;
+	int		i;
+	char	quote;
 
 	i = 0;
 	quote = '\0';
