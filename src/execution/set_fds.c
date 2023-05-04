@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_fds.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:16:09 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 21:15:15 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:33:43 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	set_io_redirection(t_tk_exec *exec_vars, int cmd_n)
 
 void	set_fd_variables(t_tk_exec *exec_vars)
 {
-	if(exec_vars->fd_in == exec_vars->fd_heredoc)
+	if (exec_vars->fd_in == exec_vars->fd_heredoc)
 	{
-		if(unlink(".tmp") != 0)
+		if (unlink(".tmp") != 0)
 			perror("unlink() failed");
 		exec_vars->fd_heredoc = -1;
 	}
