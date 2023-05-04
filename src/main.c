@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:36:18 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 18:36:27 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:13:07 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, const char **envp)
 	while (1)
 	{
 		shell.exit_status = 0;
-		//handle_signal();
+		handle_signal();
 		handle_token(&shell);
 		shell.last_status = shell.exit_status;
 	}

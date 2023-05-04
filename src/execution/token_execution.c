@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:17:44 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/02 17:16:40 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:15:31 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ void	execute_token(t_shell *shell)
 		if (exec_vars.token->type == WORD)
 		{
 			redirect_outfile(&exec_vars);
+			redirect_infile(&exec_vars, shell);
 			pipe(exec_vars.fd);
-			set_io_redirection(&exec_vars);
+			set_io_redirection(&exec_vars, shell->h_token->n_cmds);
 			run_command(&exec_vars, shell);
 			set_fd_variables(&exec_vars);
 			exec_vars.cmd_i++;

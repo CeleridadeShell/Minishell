@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/03 18:03:16 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:16:01 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_token_execution
 	int		fd_in;
 	int		cmd_i;
 	int		fd_file;
+	int 	fd_heredoc;
 }	t_tk_exec;
 
 // Functions
@@ -110,9 +111,10 @@ char	*find_envp_field(t_shell *shell, const char *field);
 int		find_envp_field_index(t_shell *shell, const char *field);
 void	replace_env_field(t_shell *shell, const char *field, \
 const char *new_field);
+void cmd_expand_str(char *str, t_shell *shell);
 void	cmd_expand_var(t_token *token, t_shell *shell);
 int		count_number_of_params(char **cmd);
-void	remove_quotes(t_token *token, int i);
+void	remove_quotes(char **str, int i);
 
 // Tokenization
 int		is_redirect(char c);
@@ -160,7 +162,8 @@ void	close_custom(int *fd);
 void	redirect_outfile(t_tk_exec *exec_vars);
 void	run_command(t_tk_exec *exec_vars, t_shell *shell);
 void	set_fd_variables(t_tk_exec *exec_vars);
-void	set_io_redirection(t_tk_exec *exec_vars);
+void	set_io_redirection(t_tk_exec *exec_vars, int n_cmds);
 void	init_exec_vars(t_tk_exec *exec_vars, t_shell *shell);
+void redirect_infile(t_tk_exec *exec_vars, t_shell *shell);
 
 #endif
