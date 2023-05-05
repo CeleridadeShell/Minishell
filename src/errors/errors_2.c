@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:03:06 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 19:03:14 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/05 20:20:51 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,13 @@ int	check_quotes(char *argument)
 		index++;
 	}
 	return (0);
+}
+
+void	throw_err_cd(t_shell *shell, char *err, int status)
+{
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd(err, 2);
+	ft_putstr_fd(": No such file or directory", 2);
+	ft_putchar_fd('\n', 2);
+	shell->exit_status = status;
 }

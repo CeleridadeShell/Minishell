@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:12:37 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 18:59:48 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/05 20:15:21 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	is_arg_valid(char *arg)
 		return (0);
 }
 
-static void	realloc_env(t_shell *shell, char *env_line)
+void	realloc_env(t_shell *shell, char *env_line)
 {
 	char	**tmp_env;
 	int		line_count;

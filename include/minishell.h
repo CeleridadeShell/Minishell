@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/04 17:35:41 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/05 20:15:36 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int		is_empty(char *input);
 int		check_input(char *input);
 void	unexpected_token(t_shell *shell, char *token);
 void	throw_err(t_shell *shell, char *err, int status);
+void	throw_err_cd(t_shell *shell, char *err, int status);
 void	command_not_found(t_shell *shell, char *cmd);
 
 // Utils
@@ -116,6 +117,7 @@ void	found_dollar_sign(t_shell *shell, char **str, int i, char quote);
 void	cmd_expand_var(t_token *token, t_shell *shell);
 int		count_number_of_params(char **cmd);
 void	remove_quotes(char **str, int i);
+void	realloc_env(t_shell *shell, char *env_line);
 
 // Tokenization
 int		is_redirect(char c);

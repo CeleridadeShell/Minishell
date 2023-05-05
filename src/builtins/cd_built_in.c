@@ -6,21 +6,11 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 14:13:48 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 18:51:52 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/05 20:18:12 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-static void	throw_err_cd(char *err)
-{
-	ft_putstr_fd("minishell: cd: ", 2);
-	ft_putstr_fd(err, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(strerror(errno), 2);
-	ft_putchar_fd('\n', 2);
-	// cmd->error = 1; Qual seria a variável equivalente?
-}
 
 static void	update_workdir(t_shell *shell)
 {
@@ -33,10 +23,13 @@ static void	update_workdir(t_shell *shell)
 	tmp = current_pwd;
 	current_pwd = ft_strjoin("OLD", current_pwd);
 	ft_freethis(&tmp, NULL);
-	replace_env_field(shell, "OLDPWD", current_pwd);
+	if (find_envp_field_index(shell, "OLDPWD") != -1)
+		replace_env_field(shell, "OLDPWD", current_pwd);
+	else
+		realloc_env(shell, current_pwd);
 	ft_freethis(&current_pwd, NULL);
 	tmp = getcwd(NULL, 0);
-	current_pwd = ft_strjoin("PWD=/", tmp);
+	current_pwd = ft_strjoin("PWD=", tmp);
 	replace_env_field(shell, "PWD", current_pwd);
 	ft_freethis(&tmp, NULL);
 	ft_freethis(&current_pwd, NULL);
@@ -54,12 +47,18 @@ void	ft_cd(t_token *token, t_shell *shell)
 	if (!token->cmd[1])
 		destiny = find_envp_field(shell, "HOME");
 	else if (!ft_strncmp((char *)token->cmd[1], "-", ft_strlen(token->cmd[1])))
+	{
 		destiny = find_envp_field(shell, "OLDPWD");
+		if (!destiny)
+			throw_err(shell, "cd: OLDPWD not set", 1);
+		else
+			printf("%s\n", destiny);
+	}
 	else
 		destiny = ft_strdup((char *)token->cmd[1]);
 	if (!chdir(destiny))
 		update_workdir(shell);
-	else
-		throw_err_cd(destiny);
+	else if (shell->exit_status == 0)
+		throw_err_cd(shell, destiny, 1);
 	ft_freethis(&destiny, NULL);
 }
