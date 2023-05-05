@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:57:33 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 18:59:09 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/05 19:03:30 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ void	ft_exit(t_token *token, t_shell *shell)
 		shell->exit_status = 2;
 	}
 	else if (token->cmd[1])
-	{
 		shell->exit_status = ft_atoi(token->cmd[1]);
-	}
 	free_token(token);
 	free_paths(shell->paths);
 	free_shell(shell);
-	exit(0);
+	exit(shell->exit_status);
 }
