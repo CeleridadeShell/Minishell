@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:19:33 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/30 21:33:53 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:12:51 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,14 @@ static void	sigint_handler(int sig)
 
 static void	sigint_handler_child(int sig)
 {
-	(void)sig;
-	ft_putstr_fd("\n", STDOUT_FILENO);
-	rl_replace_line("", 0);
+	if(sig == SIGINT)
+		exit(0);
+	else if (sig == SIGQUIT)
+	{
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
+		exit(0);
+	}
+
 }
 
 /**
@@ -43,16 +48,29 @@ static void	sigint_handler_child(int sig)
 *@param none
 *@return none.
 */
-//void	handle_signal(void)
-//{
-//	signal(SIGINT, sigint_handler);
-//	signal(SIGQUIT, SIG_IGN);
-//}
+void	fix_sigint_exec(void)
+{
+	struct sigaction	sig_int;
+
+	sig_int.sa_handler = SIG_IGN;
+	sig_int.sa_flags = SA_RESTART;
+	sigemptyset(&sig_int.sa_mask);
+	sigaction(SIGINT, &sig_int, NULL);
+}
 
 void	handle_signal_child(void)
 {
-	signal(SIGINT, sigint_handler_child);
-	signal(SIGQUIT, SIG_IGN);
+	struct sigaction	sig_int;
+	struct sigaction	sig_quit;
+
+	sig_int.sa_handler = &sigint_handler_child;
+	sig_int.sa_flags = SA_RESTART;
+	sigemptyset(&sig_int.sa_mask);
+	sigaction(SIGINT, &sig_int, NULL);
+	sig_quit.sa_handler = &sigint_handler_child;
+	sig_quit.sa_flags = SA_RESTART;
+	sigemptyset(&sig_quit.sa_mask);
+	sigaction(SIGQUIT, &sig_quit, NULL);
 }
 
 // function with sigaction instead of signal

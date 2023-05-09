@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:58:56 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/08 21:41:32 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:13:30 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,13 @@ void	run_command(t_tk_exec *exec_vars, t_shell *shell)
 
 	if (check_built_in(exec_vars->token, shell) != 0)
 	{
+		fix_sigint_exec();
 		pid = fork();
 		if (pid == -1)
 			exit(EXIT_FAILURE);
 		else if (pid == 0)
 		{
+			handle_signal_child();
 			close(exec_vars->fd[0]);
 			if (!ft_strncmp(exec_vars->token->cmd[0], ".", 1) || \
 			!ft_strncmp(exec_vars->token->cmd[0], "/", 1))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/05 20:15:36 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:15:25 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_token_execution
 // signals
 void	handle_signal_child(void);
 void	handle_signal(void);
+void	fix_sigint_exec(void);
 
 // Inicialization
 void	initialize_shell(t_shell *shell, const char **envp);

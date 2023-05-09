@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:36:18 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 21:13:07 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:00:12 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,21 @@ void	handle_token(t_shell *shell)
 
 	start_tokens(shell);
 	input = readline(shell->prompt); // Mudar como comando é lido
-	add_history(input);
 	if (!input)
 	{
 		free_token(shell->h_token);
 		free_paths(shell->paths);
 		free_shell(shell);
-		exit(0);
+		exit(1);
 	}
-	lexer(input, shell);
-	parsing(shell->h_token, shell);
-	if (!shell->exit_status)
-		execute_token(shell);
+	else if(*input != 0)
+	{
+		add_history(input);
+		lexer(input, shell);
+		parsing(shell->h_token, shell);
+		if (!shell->exit_status)
+			execute_token(shell);
+	}
 	free_token(shell->h_token);
 	free_paths(shell->paths);
 }
