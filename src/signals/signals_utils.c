@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:19:33 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/08 22:12:51 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:20:39 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ static void	sigint_handler(int sig)
 static void	sigint_handler_child(int sig)
 {
 	if(sig == SIGINT)
+	{
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		exit(0);
+	}
 	else if (sig == SIGQUIT)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);

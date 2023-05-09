@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:58:08 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/03 19:06:46 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:26:34 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	lexer(char *input, t_shell *shell)
 			input = when_sep_pipe(shell, &tmp, input, holder);
 		else if (holder == REDIRECT)
 			input = when_redirect(shell, &tmp, input);
-		else if (holder == WORD)
+		else
 			input = when_word(shell, &tmp, input);
 	}
 	normalize(shell, tmp);
