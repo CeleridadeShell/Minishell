@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:58:56 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/05 18:33:51 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:41:32 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	run_path(t_shell *shell, t_token *token)
 	else
 	{
 		command_not_found(shell, token->cmd[0]);
+		exit(shell->exit_status);
 	}
 	i++;
 }
@@ -62,7 +63,10 @@ static void	run_sys_bin(t_shell *shell, t_token *token)
 		i++;
 	}
 	if (tested_path == NULL)
+	{
 		command_not_found(shell, token->cmd[0]);
+		exit(shell->exit_status);
+	}
 	ft_freethis(&tested_path, NULL);
 }
 
@@ -86,6 +90,12 @@ void	run_command(t_tk_exec *exec_vars, t_shell *shell)
 			exit(EXIT_FAILURE);
 		}
 		else
-			wait(&shell->exit_status);
+		{
+			wait4(pid, &shell->exit_status, 0 , NULL);
+			if(WIFEXITED (shell->exit_status))
+				shell->exit_status = WEXITSTATUS(shell->exit_status);
+			else if (WIFSIGNALED(shell->exit_status))
+				shell->exit_status = WTERMSIG(shell->exit_status) + 128;
+		}
 	}
 }
