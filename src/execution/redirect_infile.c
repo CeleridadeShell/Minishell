@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_infile.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 20:01:48 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/04 17:34:55 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:07:38 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
 	t_token	*tmp;
 	char	*r;
 
+	fix_sigint_exec();
 	tmp = token->next_token;
 	pid = fork();
 	if (pid == -1)
@@ -41,6 +42,7 @@ void	heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
 	}
 	else if (pid == 0)
 	{
+		handle_signal_heredoc();
 		unlink(".tmp");
 		exec_vars->fd_heredoc = open(".tmp", O_RDWR | O_CREAT, 0777);
 		dup2(exec_vars->fd_original[0], STDIN_FILENO);

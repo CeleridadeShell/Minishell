@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:19:33 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/08 22:20:39 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:08:11 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,28 @@ void	handle_signal(void)
 	struct sigaction	sig_quit;
 
 	sig_int.sa_handler = &sigint_handler;
+	sig_int.sa_flags = SA_RESTART;
+	sigemptyset(&sig_int.sa_mask);
+	sigaction(SIGINT, &sig_int, NULL);
+	sig_quit.sa_handler = SIG_IGN;
+	sig_quit.sa_flags = SA_RESTART;
+	sigemptyset(&sig_quit.sa_mask);
+	sigaction(SIGQUIT, &sig_quit, NULL);
+}
+
+void sig_heredoc_exec(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	exit(130);
+}
+
+void	handle_signal_heredoc(void)
+{
+	struct sigaction	sig_int;
+	struct sigaction	sig_quit;
+
+	sig_int.sa_handler = &sig_heredoc_exec;
 	sig_int.sa_flags = SA_RESTART;
 	sigemptyset(&sig_int.sa_mask);
 	sigaction(SIGINT, &sig_int, NULL);

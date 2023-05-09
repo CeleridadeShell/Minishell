@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:58:56 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/08 22:13:30 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:57:28 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,19 @@ static char	*form_tested_path(t_token *token, char *path)
 static void	run_path(t_shell *shell, t_token *token)
 {
 	int	i;
+	char *str;
 
+	str = NULL;
 	i = 0;
 	if (!access(token->cmd[0], F_OK))
 	{
-		execve(token->cmd[0], token->cmd, shell->envp);
+		if(execve(token->cmd[0], token->cmd, shell->envp) == -1)
+		{
+			str = ft_strjoin(token->cmd[0], ": Is a directory");
+			throw_err(shell, str, 126);
+			ft_freethis(&str, NULL);
+			exit(shell->exit_status);
+		}
 	}
 	else
 	{
