@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:55:58 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/05 18:45:40 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:40:19 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static void	replace_cmd_typed(char **str, char *found_var, int i, int j)
 	char	*str_part2;
 	char	*tmp_cmd_typed;
 
-	str_part1 = ft_substr(*str, 0, i);
-	str_part2 = ft_substr(*str, i + j + 1, ft_strlen(*str));
+	str_part1 = ft_substr(str[0], 0, i);
+	str_part2 = ft_substr(str[0], i + j + 1, ft_strlen(str[0]));
 	tmp_cmd_typed = ft_strjoin(str_part1, found_var);
-	ft_freethis(&*str, NULL);
-	*str = ft_strjoin(tmp_cmd_typed, str_part2);
+	ft_freethis(&str[0], NULL);
+	str[0] = ft_strjoin(tmp_cmd_typed, str_part2);
 	ft_freethis(&tmp_cmd_typed, NULL);
 	ft_freethis(&str_part1, NULL);
 	ft_freethis(&str_part2, NULL);
@@ -53,6 +53,7 @@ static void	search_env_vars(char **str, t_shell *shell, int i)
 		else
 			found_var = ft_strdup("");
 	}
+	ft_freethis(&env_var, NULL);
 	replace_cmd_typed(str, found_var, i, j);
 	ft_freethis(&found_var, NULL);
 }

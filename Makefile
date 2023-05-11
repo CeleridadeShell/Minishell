@@ -6,7 +6,7 @@
 #    By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 19:31:21 by mcarecho          #+#    #+#              #
-#    Updated: 2023/04/25 17:20:51 by ccamargo         ###   ########.fr        #
+#    Updated: 2023/05/11 19:18:50 by ccamargo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC				=	*.c \
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
 
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -g3
+CFLAGS			= -Wall -Wextra -Werror -g3 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize=null -fno-sanitize=alignment
 CLINK			= -lft -lreadline
 
 BIN				= ./bin/

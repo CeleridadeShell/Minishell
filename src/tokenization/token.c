@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:10:07 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/03 19:12:57 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/11 20:27:44 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,45 @@
 *@param pos
 *@return the next token found in the string
 */
-t_token	*get_next_token(char *input, int end_pos)
+t_token	*get_next_token(char *input, int end_pos, t_token *last_token)
 {
-	while (input[end_pos] != '\0')
+	if (last_token->type == REDIRECT)
 	{
-		if (is_quote(input[end_pos]))
+		while (input[end_pos] == ' ')
 		{
-			end_pos += ft_strchr(&input[end_pos] + 1, input[end_pos])
-				- &input [end_pos];
+			end_pos++;
 		}
-		else if (is_redirect(input[end_pos]) || is_pipe(input[end_pos])
-			|| is_separator(input[end_pos]))
+		while (input[end_pos] != ' ')
 		{
-			return (n_token(input, WORD, end_pos - 1));
+			if (is_quote(input[end_pos]))
+			{
+				end_pos += ft_strchr(&input[end_pos] + 1, input[end_pos])
+					- &input [end_pos];
+			}
+			else if (is_redirect(input[end_pos]) || is_pipe(input[end_pos])
+				|| is_separator(input[end_pos]))
+			{
+				return (n_token(input, WORD, end_pos - 1));
+			}
+			end_pos++;
 		}
-		end_pos++;
+	}
+	else
+	{
+		while (input[end_pos] != '\0')
+		{
+			if (is_quote(input[end_pos]))
+			{
+				end_pos += ft_strchr(&input[end_pos] + 1, input[end_pos])
+					- &input [end_pos];
+			}
+			else if (is_redirect(input[end_pos]) || is_pipe(input[end_pos])
+				|| is_separator(input[end_pos]))
+			{
+				return (n_token(input, WORD, end_pos - 1));
+			}
+			end_pos++;
+		}
 	}
 	return (n_token(input, WORD, end_pos));
 }

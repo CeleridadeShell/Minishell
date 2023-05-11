@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:07:11 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 19:08:13 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:52:27 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*when_sep_pipe(t_shell *shell, t_token **tmp, char *input, int holder)
 
 char	*when_word(t_shell *shell, t_token **tmp, char *input)
 {
-	*tmp = append_token(shell, get_next_token(input, 0), *tmp);
+	*tmp = append_token(shell, get_next_token(input, 0, *tmp), *tmp);
 	return (input + ft_strlen((*tmp)->value));
 }
 

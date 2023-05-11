@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:32:52 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/02 15:53:17 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:12:18 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	redirect_outfile(t_tk_exec *exec_vars)
 {
 	t_token	*tmp;
 
-	tmp = exec_vars->token->next_token;
+	tmp = exec_vars->token;
 	while (tmp && tmp->type != PIPE)
 	{
 		if (tmp->type == REDIRECT && !ft_strncmp(tmp->value, ">", 2))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_infile.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 20:01:48 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/08 23:07:38 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:34:12 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
 			}
 			else if (ft_strlen(r) != 0)
 			{
-				cmd_expand_str(r, shell);
+				cmd_expand_str(&r, shell);
 				ft_putendl_fd(r, exec_vars->fd_heredoc);
 				free(r);
 			}
@@ -84,7 +84,7 @@ void	redirect_infile(t_tk_exec *exec_vars, t_shell *shell)
 {
 	t_token	*tmp;
 
-	tmp = exec_vars->token->next_token;
+	tmp = exec_vars->token;
 	while (tmp && tmp->type != PIPE)
 	{
 		if (tmp->type == REDIRECT && !ft_strncmp(tmp->value, "<", 2))

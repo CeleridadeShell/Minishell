@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:08:57 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 19:08:59 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/11 20:28:37 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,18 @@ t_token	*parsing(t_token *token, t_shell *shell)
 	index = 0;
 	temp = token;
 	last_type = SEPARATOR;
-	while (index < token->n_cmds)
+	while (index < token->n_tokens)
 	{
 		if (temp->type == WORD && last_type != REDIRECT)
 		{
 			cmd_expand_var(temp, shell);
 			temp->cmd = ft_split_pipex(temp->value);
-			index++;
 		}
+		else if (temp->type == WORD && last_type == REDIRECT)
+		{
+			cmd_expand_str(&temp->value, shell);
+		}
+		index++;
 		last_type = temp->type;
 		temp = temp->next_token;
 	}

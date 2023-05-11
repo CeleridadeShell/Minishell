@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/08 23:06:06 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:49:26 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*find_envp_field(t_shell *shell, const char *field);
 int		find_envp_field_index(t_shell *shell, const char *field);
 void	replace_env_field(t_shell *shell, const char *field, \
 const char *new_field);
-void	cmd_expand_str(char *str, t_shell *shell);
+void	cmd_expand_str(char **str, t_shell *shell);
 void	found_dollar_sign(t_shell *shell, char **str, int i, char quote);
 void	cmd_expand_var(t_token *token, t_shell *shell);
 int		count_number_of_params(char **cmd);
@@ -142,7 +142,7 @@ char	*ft_strdup_char(char c);
 t_token	*parsing(t_token *token, t_shell *shell);
 char	**ft_split_pipex(char *argument);
 
-t_token	*get_next_token(char *input, int end_pos);
+t_token	*get_next_token(char *input, int end_pos, t_token *last_token);
 t_token	*n_token(char *value, int type, int size);
 int		verify_unexpecte_token(t_token *current_token, t_token *last_token);
 

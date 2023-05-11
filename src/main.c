@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:36:18 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/08 22:00:12 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:43:38 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	handle_token(t_shell *shell)
 	{
 		add_history(input);
 		lexer(input, shell);
+		ft_freethis(&input, NULL);
 		parsing(shell->h_token, shell);
 		if (!shell->exit_status)
 			execute_token(shell);
