@@ -6,27 +6,29 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 20:01:48 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/11 19:34:12 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/11 20:44:04 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	open_infile(t_token *token, int *fd_file)
+static void	open_infile(t_shell *shell, t_token *token, int *fd_file)
 {
 	t_token	*tmp;
+	char	*tmp_str;
 
 	tmp = token->next_token;
 	close_custom(fd_file);
 	*fd_file = open(tmp->value, O_RDONLY, 0644);
 	if (*fd_file == -1)
 	{
-		perror("open() failed");
-		exit(EXIT_FAILURE);
+		tmp_str = ft_strjoin(tmp->value, ": No such file or directory");
+		throw_err(shell, tmp_str, 1);
+		ft_freethis(&tmp_str, NULL);
 	}
 }
 
-void	heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
+static void	heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
 {
 	pid_t	pid;
 	t_token	*tmp;
@@ -89,7 +91,7 @@ void	redirect_infile(t_tk_exec *exec_vars, t_shell *shell)
 	{
 		if (tmp->type == REDIRECT && !ft_strncmp(tmp->value, "<", 2))
 		{
-			open_infile(tmp, &exec_vars->fd_in);
+			open_infile(shell, tmp, &exec_vars->fd_in);
 		}
 		else if (tmp->type == REDIRECT && !ft_strncmp(tmp->value, "<<", 3))
 		{

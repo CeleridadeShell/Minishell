@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:10:07 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/11 20:27:44 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/11 20:34:33 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_token	*get_next_token(char *input, int end_pos, t_token *last_token)
 		{
 			end_pos++;
 		}
-		while (input[end_pos] != ' ')
+		while (input[end_pos] != '\0' && input[end_pos] != ' ')
 		{
 			if (is_quote(input[end_pos]))
 			{
