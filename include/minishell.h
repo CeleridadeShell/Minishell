@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/11 19:49:26 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:34:02 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_shell
 
 typedef struct s_token_execution
 {
+	pid_t	*pids;
 	t_token	*token;
 	int		fd[2];
 	int		fd_original[2];

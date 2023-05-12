@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:58:56 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/08 22:57:28 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:42:32 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,34 +78,24 @@ static void	run_sys_bin(t_shell *shell, t_token *token)
 	ft_freethis(&tested_path, NULL);
 }
 
-void	run_command(t_tk_exec *exec_vars, t_shell *shell)
+void    run_command(t_tk_exec *exec_vars, t_shell *shell)
 {
-	pid_t	pid;
-
-	if (check_built_in(exec_vars->token, shell) != 0)
-	{
-		fix_sigint_exec();
-		pid = fork();
-		if (pid == -1)
-			exit(EXIT_FAILURE);
-		else if (pid == 0)
-		{
-			handle_signal_child();
-			close(exec_vars->fd[0]);
-			if (!ft_strncmp(exec_vars->token->cmd[0], ".", 1) || \
-			!ft_strncmp(exec_vars->token->cmd[0], "/", 1))
-				run_path(shell, exec_vars->token);
-			else
-				run_sys_bin(shell, exec_vars->token);
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			wait4(pid, &shell->exit_status, 0 , NULL);
-			if(WIFEXITED (shell->exit_status))
-				shell->exit_status = WEXITSTATUS(shell->exit_status);
-			else if (WIFSIGNALED(shell->exit_status))
-				shell->exit_status = WTERMSIG(shell->exit_status) + 128;
-		}
-	}
+    if (check_built_in(exec_vars->token, shell) != 0)
+    {
+        fix_sigint_exec();
+        exec_vars->pids[exec_vars->cmd_i] = fork();
+        if (exec_vars->pids[exec_vars->cmd_i] == -1)
+            exit(EXIT_FAILURE);
+        else if (exec_vars->pids[exec_vars->cmd_i] == 0)
+        {
+            handle_signal_child();
+            close(exec_vars->fd[0]);
+            if (!ft_strncmp(exec_vars->token->cmd[0], ".", 1) || \
+            !ft_strncmp(exec_vars->token->cmd[0], "/", 1))
+                run_path(shell, exec_vars->token);
+            else
+                run_sys_bin(shell, exec_vars->token);
+            exit(EXIT_FAILURE);
+        }
+    }
 }
