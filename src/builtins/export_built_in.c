@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:12:37 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/13 00:27:45 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:40:16 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@ static void	no_args(t_shell *shell)
 	}
 }
 
-static int validate_var_name(char arg, int i)
+static int	validate_var_name(char arg, int i)
 {
-	/* char	invalid_chars[28]; */
-	int		j;
+	int	j;
 
-	/* invalid_chars = {'!', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+', '=', '{', '}', '[', ']', '|', ' ', ':', ';', '\"', '\'', '<', '>', ',', '?', '/', '\0'}; */
 	j = 0;
-
 	if (i == 0 && ft_isdigit(arg))
 		return (1);
 	while (INVALID_CHARS[j])
@@ -100,8 +97,6 @@ void	realloc_env(t_shell *shell, char *env_line)
 
 void	ft_export(t_token *token, t_shell *shell)
 {
-	char	*var_name;
-	char	*tmp_found_field;
 	int		i;
 
 	if (count_number_of_params(token->cmd) == 1)
@@ -110,21 +105,14 @@ void	ft_export(t_token *token, t_shell *shell)
 		return ;
 	}
 	i = 1;
-		while (token->cmd[i])
+	while (token->cmd[i])
+	{
+		if (is_arg_valid(token->cmd[i]))
 		{
-			if (is_arg_valid(token->cmd[i]))
-			{
-				var_name = ft_substr(token->cmd[i], 0, ft_strchr(token->cmd[i], '=') - token->cmd[i]);
-				tmp_found_field = find_envp_field(shell, var_name);
-				if (tmp_found_field == NULL)
-					realloc_env(shell, token->cmd[i]);
-				else
-					replace_env_field(shell, var_name, token->cmd[i]);
-				ft_freethis(&var_name, NULL);
-				ft_freethis(&tmp_found_field, NULL);
-			}
-			else
-				shell->exit_status = 1;
-			i++;
+			valid_arg(shell, token, &i);
 		}
+		else
+			shell->exit_status = 1;
+		i++;
+	}
 }

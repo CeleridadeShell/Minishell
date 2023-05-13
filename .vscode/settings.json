@@ -3,6 +3,16 @@
 	"files.associations": {
 		"*.js": "javascriptreact",
 		"*.tcc": "c",
-		"minishell.h": "c"
-	}
+		"minishell.h": "c",
+		"optional": "c",
+		"ratio": "c",
+		"system_error": "c",
+		"array": "c",
+		"functional": "c",
+		"tuple": "c",
+		"type_traits": "c",
+		"utility": "c",
+		"variant": "c"
+	},
+	"editor.insertSpaces": false,
 }

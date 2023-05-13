@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:58:56 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/12 22:39:55 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:23:41 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ static char	*form_tested_path(t_token *token, char *path)
 
 static void	run_path(t_shell *shell, t_token *token)
 {
-	int	i;
-	char *str;
+	int		i;
+	char	*str;
 
 	str = NULL;
 	i = 0;
 	if (!access(token->cmd[0], F_OK))
 	{
-		if(execve(token->cmd[0], token->cmd, shell->envp) == -1)
+		if (execve(token->cmd[0], token->cmd, shell->envp) == -1)
 		{
 			str = ft_strjoin(token->cmd[0], ": Is a directory");
 			throw_err(shell, str, 126);
@@ -79,24 +79,24 @@ static void	run_sys_bin(t_shell *shell, t_token *token)
 	ft_freethis(&tested_path, NULL);
 }
 
-void    run_command(t_tk_exec *exec_vars, t_shell *shell)
+void	run_command(t_tk_exec *exec_vars, t_shell *shell)
 {
-    if (check_built_in(exec_vars->token, shell) != 0)
-    {
-        fix_sigint_exec();
-        exec_vars->pids[exec_vars->cmd_i] = fork();
-        if (exec_vars->pids[exec_vars->cmd_i] == -1)
-            exit(EXIT_FAILURE);
-        else if (exec_vars->pids[exec_vars->cmd_i] == 0)
-        {
-            handle_signal_child();
-            close(exec_vars->fd[0]);
-            if (!ft_strncmp(exec_vars->token->cmd[0], ".", 1) || \
-            !ft_strncmp(exec_vars->token->cmd[0], "/", 1))
-                run_path(shell, exec_vars->token);
-            else
-                run_sys_bin(shell, exec_vars->token);
-            exit(EXIT_FAILURE);
-        }
-    }
+	if (check_built_in(exec_vars->token, shell) != 0)
+	{
+		fix_sigint_exec();
+		exec_vars->pids[exec_vars->cmd_i] = fork();
+		if (exec_vars->pids[exec_vars->cmd_i] == -1)
+			exit(EXIT_FAILURE);
+		else if (exec_vars->pids[exec_vars->cmd_i] == 0)
+		{
+			handle_signal_child();
+			close(exec_vars->fd[0]);
+			if (!ft_strncmp(exec_vars->token->cmd[0], ".", 1) || \
+			!ft_strncmp(exec_vars->token->cmd[0], "/", 1))
+				run_path(shell, exec_vars->token);
+			else
+				run_sys_bin(shell, exec_vars->token);
+			exit(EXIT_FAILURE);
+		}
+	}
 }

@@ -6,13 +6,13 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:55:58 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/13 00:25:42 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:50:59 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	replace_cmd_typed(char **str, char *found_var, int i, int j)
+void	replace_cmd_typed(char **str, char *found_var, int i, int j)
 {
 	char	*str_part1;
 	char	*str_part2;
@@ -26,36 +26,6 @@ static void	replace_cmd_typed(char **str, char *found_var, int i, int j)
 	ft_freethis(&tmp_cmd_typed, NULL);
 	ft_freethis(&str_part1, NULL);
 	ft_freethis(&str_part2, NULL);
-}
-
-static void	search_env_vars(char **str, t_shell *shell, int i)
-{
-	char	*env_var;
-	char	*found_var;
-	int		j;
-
-	j = 0;
-	found_var = NULL;
-	env_var = ft_strchr(&str[0][i + 1], ' ');
-	if (env_var == NULL)
-		j = ft_strlen(str[0]) - i - 1;
-	else
-		j += env_var - &str[0][i + 1];
-	found_var = ft_substr(str[0], i + 1, j);
-	env_var = ft_strtrim(found_var, "\"");
-	j = ft_strlen(env_var);
-	ft_freethis(&found_var, NULL);
-	found_var = find_envp_field(shell, env_var);
-	if (found_var == NULL)
-	{
-		if (ft_strncmp(env_var, "?", 1) == 0)
-			found_var = ft_itoa(shell->last_status);
-		else
-			found_var = ft_strdup("");
-	}
-	ft_freethis(&env_var, NULL);
-	replace_cmd_typed(str, found_var, i, j);
-	ft_freethis(&found_var, NULL);
 }
 
 static void	remove_dollar_sign(char **str, int i)

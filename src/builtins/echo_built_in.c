@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_built_in.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:56:31 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/26 18:43:25 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:41:04 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,4 @@ void	ft_echo(t_token *token)
 	}
 	if (new_line)
 		printf("\n");
-	//cmd->builtin = 1;
 }

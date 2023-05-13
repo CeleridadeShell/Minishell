@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 20:01:48 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/11 20:44:04 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:42:02 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,47 @@ static void	open_infile(t_shell *shell, t_token *token, int *fd_file)
 	}
 }
 
+static void	pid_0_while(t_tk_exec *exec_vars, t_shell *shell, t_token *tmp)
+{
+	char	*r;
+
+	r = readline("> ");
+	if (r == NULL)
+	{
+		close(exec_vars->fd_heredoc);
+		exit(EXIT_FAILURE);
+	}
+	else if (!ft_strncmp(r, tmp->value, ft_strlen(tmp->value) + 1))
+	{
+		free(r);
+		close(exec_vars->fd_heredoc);
+		exit(EXIT_SUCCESS);
+	}
+	else if (ft_strlen(r) != 0)
+	{
+		cmd_expand_str(&r, shell);
+		ft_putendl_fd(r, exec_vars->fd_heredoc);
+		free(r);
+	}
+}
+
+static void	heredoc_pid_0(t_tk_exec *exec_vars, t_shell *shell, t_token *tmp)
+{
+	handle_signal_heredoc();
+	unlink(".tmp");
+	exec_vars->fd_heredoc = open(".tmp", O_RDWR | O_CREAT, 0777);
+	dup2(exec_vars->fd_original[0], STDIN_FILENO);
+	dup2(exec_vars->fd_original[1], STDOUT_FILENO);
+	while (1)
+		pid_0_while(exec_vars, shell, tmp);
+	close(exec_vars->fd_heredoc);
+	exit(EXIT_SUCCESS);
+}
+
 static void	heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
 {
 	pid_t	pid;
 	t_token	*tmp;
-	char	*r;
 
 	fix_sigint_exec();
 	tmp = token->next_token;
@@ -43,36 +79,7 @@ static void	heredoc(t_token *token, t_tk_exec *exec_vars, t_shell *shell)
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
-	{
-		handle_signal_heredoc();
-		unlink(".tmp");
-		exec_vars->fd_heredoc = open(".tmp", O_RDWR | O_CREAT, 0777);
-		dup2(exec_vars->fd_original[0], STDIN_FILENO);
-		dup2(exec_vars->fd_original[1], STDOUT_FILENO);
-		while (1)
-		{
-			r = readline("> ");
-			if (r == NULL)
-			{
-				close(exec_vars->fd_heredoc);
-				exit(EXIT_FAILURE);
-			}
-			else if (!ft_strncmp(r, tmp->value, ft_strlen(tmp->value) + 1))
-			{
-				free(r);
-				close(exec_vars->fd_heredoc);
-				exit(EXIT_SUCCESS);
-			}
-			else if (ft_strlen(r) != 0)
-			{
-				cmd_expand_str(&r, shell);
-				ft_putendl_fd(r, exec_vars->fd_heredoc);
-				free(r);
-			}
-		}
-		close(exec_vars->fd_heredoc);
-		exit(EXIT_SUCCESS);
-	}
+		heredoc_pid_0(exec_vars, shell, tmp);
 	else
 	{
 		wait(NULL);

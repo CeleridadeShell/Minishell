@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/13 00:04:48 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:51:05 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	handle_signal_child(void);
 void	handle_signal(void);
 void	fix_sigint_exec(void);
 void	handle_signal_heredoc(void);
+void	sigint_handler_child(int sig);
 
 // Inicialization
 void	initialize_shell(t_shell *shell, const char **envp);
@@ -119,6 +120,8 @@ const char *new_field);
 void	cmd_expand_str(char **str, t_shell *shell);
 void	found_dollar_sign(t_shell *shell, char **str, int i, char quote);
 void	cmd_expand_var(t_token *token, t_shell *shell);
+void	search_env_vars(char **str, t_shell *shell, int i);
+void	replace_cmd_typed(char **str, char *found_var, int i, int j);
 int		count_number_of_params(char **cmd);
 void	remove_quotes(char **str, int i);
 void	realloc_env(t_shell *shell, char *env_line);
@@ -148,17 +151,13 @@ t_token	*get_next_token(char *input, int end_pos, t_token *last_token);
 t_token	*n_token(char *value, int type, int size);
 int		verify_unexpecte_token(t_token *current_token, t_token *last_token);
 
-// char	*get_env(t_mini_env *env, char *key);
-// char	*sub_error_n(char *str, char *key, int a, t_shell *shell);
-// char	*is_key(char *key, char *str, int a, t_shell *shell);
-// char	*get_key(char *word, int a, t_shell *shell);
-
 //Builtins
 int		check_built_in(t_token *token, t_shell *shell);
 void	ft_echo(t_token *token);
 void	ft_cd(t_token *token, t_shell *shell);
 void	ft_pwd(t_shell *shell);
 void	ft_export(t_token *token, t_shell *shell);
+void	valid_arg(t_shell *shell, t_token *token, int *i);
 void	ft_unset(t_token *token, t_shell *shell);
 void	ft_env(t_shell *shell);
 void	ft_exit(t_token *token, t_shell *shell);
