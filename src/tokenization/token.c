@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:10:07 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/11 20:34:33 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 00:12:20 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ t_token	*get_next_token(char *input, int end_pos, t_token *last_token)
 				end_pos += ft_strchr(&input[end_pos] + 1, input[end_pos])
 					- &input [end_pos];
 			}
-			else if (is_redirect(input[end_pos]) || is_pipe(input[end_pos])
-				|| is_separator(input[end_pos]))
+			else if (is_redirect(input[end_pos]) || is_pipe(input[end_pos]))
 			{
 				return (n_token(input, WORD, end_pos - 1));
 			}
@@ -52,8 +51,7 @@ t_token	*get_next_token(char *input, int end_pos, t_token *last_token)
 				end_pos += ft_strchr(&input[end_pos] + 1, input[end_pos])
 					- &input [end_pos];
 			}
-			else if (is_redirect(input[end_pos]) || is_pipe(input[end_pos])
-				|| is_separator(input[end_pos]))
+			else if (is_redirect(input[end_pos]) || is_pipe(input[end_pos]))
 			{
 				return (n_token(input, WORD, end_pos - 1));
 			}

@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:58:08 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/11 19:43:09 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 00:10:23 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ char	*get_value(char **input)
 
 int	is_symbol(char c)
 {
-	if (is_separator(c))
-		return (SEPARATOR);
-	else if (is_redirect(c))
+/* 	if (is_separator(c))
+		return (SEPARATOR); */
+	if (is_redirect(c))
 		return (REDIRECT);
 	else if (is_pipe(c))
 		return (PIPE);

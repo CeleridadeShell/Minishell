@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:16:09 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:34:42 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/12 23:34:46 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_exec_vars(t_tk_exec *exec_vars, t_shell *shell)
 {
-	exec_vars->pids = malloc((shell->h_token->n_cmds) * sizeof(pid_t));
+	exec_vars->pids = ft_calloc((shell->h_token->n_cmds), sizeof(pid_t));
 	exec_vars->token = shell->h_token;
 	exec_vars->fd_in = 0;
 	exec_vars->cmd_i = 0;

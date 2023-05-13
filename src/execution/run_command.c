@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:58:56 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:42:32 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/12 22:39:55 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static void	run_sys_bin(t_shell *shell, t_token *token)
 	int		i;
 
 	i = 0;
-	while (shell->paths[i])
+	tested_path = NULL;
+	while (shell->paths && shell->paths[i])
 	{
 		tested_path = form_tested_path(token, shell->paths[i]);
 		if (!access(tested_path, F_OK))

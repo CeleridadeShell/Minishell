@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/12 19:34:02 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 00:04:48 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define WHITESPACE 5 // um espaço em branco
 # define CHARS_WHITESPACES " \t\n"
 # define TEMP_SPACE 1
+# define INVALID_CHARS "!#$%^&*()-+={}[]| :;\"\\<>,?/\0"
 
 // structs
 

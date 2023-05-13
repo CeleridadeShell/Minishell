@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:03:06 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/05 20:20:51 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/12 21:34:09 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	check_quotes(char *argument)
 		if (argument[index] == '\'' || argument[index] == '\"')
 		{
 			quote = argument[index];
+			index++;
 			while (argument[index] && argument[index] != quote)
 				index++;
 			if (argument[index] != quote)

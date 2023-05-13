@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 20:19:33 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/08 23:08:11 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/05/12 22:33:50 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ static void	sigint_handler_child(int sig)
 
 }
 
+static void fix_sigint_multiple_pipes(int sig)
+{
+	(void)sig;
+	printf("\n");
+}
+
 /**
 *@brief Handles the main signals for the minishell (first one tells that the
 *signal is ignored, the second one changes the signal behavior)
@@ -55,7 +61,7 @@ void	fix_sigint_exec(void)
 {
 	struct sigaction	sig_int;
 
-	sig_int.sa_handler = SIG_IGN;
+	sig_int.sa_handler = &fix_sigint_multiple_pipes;
 	sig_int.sa_flags = SA_RESTART;
 	sigemptyset(&sig_int.sa_mask);
 	sigaction(SIGINT, &sig_int, NULL);
@@ -70,10 +76,16 @@ void	handle_signal_child(void)
 	sig_int.sa_flags = SA_RESTART;
 	sigemptyset(&sig_int.sa_mask);
 	sigaction(SIGINT, &sig_int, NULL);
-	sig_quit.sa_handler = &sigint_handler_child;
+
+	sig_quit.sa_handler = SIG_DFL;
 	sig_quit.sa_flags = SA_RESTART;
 	sigemptyset(&sig_quit.sa_mask);
 	sigaction(SIGQUIT, &sig_quit, NULL);
+
+	/* sig_quit.sa_handler = &sigint_handler_child;
+	sig_quit.sa_flags = SA_RESTART;
+	sigemptyset(&sig_quit.sa_mask);
+	sigaction(SIGQUIT, &sig_quit, NULL); */
 }
 
 // function with sigaction instead of signal

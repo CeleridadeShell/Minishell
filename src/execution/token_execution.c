@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:17:44 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:43:28 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/12 23:34:19 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,22 @@ void    execute_token(t_shell *shell)
         exec_vars.token = exec_vars.token->next_token;
     }
     exec_vars.cmd_i = 0;
-    while(exec_vars.cmd_i < shell->h_token->n_cmds){
-        wait4(exec_vars.pids[exec_vars.cmd_i], &shell->exit_status, 0 , NULL);
-        if(WIFEXITED (shell->exit_status))
-            shell->exit_status = WEXITSTATUS(shell->exit_status);
-        else if (WIFSIGNALED(shell->exit_status))
-            shell->exit_status = WTERMSIG(shell->exit_status) + 128;
+    while(exec_vars.cmd_i < shell->h_token->n_cmds)
+    {
+        if (exec_vars.pids[exec_vars.cmd_i] != 0)
+        {
+            wait4(exec_vars.pids[exec_vars.cmd_i], &shell->exit_status, 0 , NULL);
+            if(WIFEXITED (shell->exit_status))
+                shell->exit_status = WEXITSTATUS(shell->exit_status);
+            else if (WIFSIGNALED(shell->exit_status))
+            {
+                if (WTERMSIG(shell->exit_status) == 3)
+                {
+                    printf("Quit (core dumped)\n");
+                }
+                shell->exit_status = WTERMSIG(shell->exit_status) + 128;
+            }
+        }
         exec_vars.cmd_i++;
     }
     free(exec_vars.pids);

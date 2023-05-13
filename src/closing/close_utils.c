@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:37:04 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 19:01:20 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/12 22:36:25 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,14 @@ void	free_paths(char **paths)
 	int	i;
 
 	i = 0;
-	while (paths[i])
+	if (paths)
 	{
-		ft_freethis(&paths[i], NULL);
-		i++;
+		while (paths[i])
+		{
+			ft_freethis(&paths[i], NULL);
+			i++;
+		}
+		free(paths);
+		paths = NULL;
 	}
-	free(paths);
-	paths = NULL;
 }
