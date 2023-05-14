@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 14:13:48 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/05 20:18:12 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:06:27 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	update_workdir(t_shell *shell)
 		realloc_env(shell, current_pwd);
 	ft_freethis(&current_pwd, NULL);
 	tmp = getcwd(NULL, 0);
-	current_pwd = ft_strjoin("PWD=", tmp);
+	current_pwd = ft_strjoin("PWD=/", tmp);
 	replace_env_field(shell, "PWD", current_pwd);
 	ft_freethis(&tmp, NULL);
 	ft_freethis(&current_pwd, NULL);
