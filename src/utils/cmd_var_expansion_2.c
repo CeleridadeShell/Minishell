@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:29:18 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/13 21:39:16 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:24:23 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ static int	search_env_vars_2(char **env_var, char **str, int *j, int i)
 {
 	while (INVALID_CHARS[*j] != '\0')
 	{
-		*env_var = ft_strchr(&str[0][i + 1], INVALID_CHARS[*j]);
-		if (*env_var != NULL)
-			return (0);
+		if (INVALID_CHARS[*j] != '\"')
+		{
+			*env_var = ft_strchr(&str[0][i + 1], INVALID_CHARS[*j]);
+			if (*env_var != NULL)
+				return (0);
+		}
 		(*j)++;
 	}
 	*j = ft_strlen(str[0]) - i - 1;
@@ -76,8 +79,10 @@ void	search_env_vars(char **str, t_shell *shell, int i)
 	env_var = ft_strchr(&str[0][i + 1], ' ');
 	if (env_var == NULL)
 	{
-		if (search_env_vars_2(&env_var, str, &j, i) == 0)
+		if (str[0][i + 1] != '?' && \
+		search_env_vars_2(&env_var, str, &j, i) == 0)
 			return ;
+		j = ft_strlen(str[0]) - i - 1;
 	}
 	else
 		j += env_var - &str[0][i + 1];
