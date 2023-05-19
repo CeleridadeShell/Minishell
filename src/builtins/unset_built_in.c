@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:59:29 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/03 19:00:38 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:28:51 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,18 @@ void	ft_unset(t_token *token, t_shell *shell)
 	int		line_count;
 
 	i = 1;
-	while (token->cmd[i])
+	if (find_envp_field_index(shell, token->cmd[i]) != -1)
 	{
-		line_count = 0;
-		while (shell->envp[line_count])
-			line_count++;
-		tmp_env = (char **) ft_calloc(line_count, sizeof(char *));
-		feed_tmp_env(shell, tmp_env, token->cmd[i]);
-		clear_envp(shell);
-		shell->envp = tmp_env;
-		i++;
+		while (token->cmd[i])
+		{
+			line_count = 0;
+			while (shell->envp[line_count])
+				line_count++;
+			tmp_env = (char **) ft_calloc(line_count, sizeof(char *));
+			feed_tmp_env(shell, tmp_env, token->cmd[i]);
+			clear_envp(shell);
+			shell->envp = tmp_env;
+			i++;
+		}
 	}
 }

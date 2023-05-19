@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:37:56 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/05/13 16:51:05 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:06:08 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 # define EXIT_SUCCESS 0
 # define TRUE 1
 # define FALSE 0
-# define QUOTE 4 // uma aspas simples ou dupla
-# define WHITESPACE 5 // um espaço em branco
+# define QUOTE 4
+# define WHITESPACE 5
 # define CHARS_WHITESPACES " \t\n"
 # define TEMP_SPACE 1
 # define INVALID_CHARS "!#$%^&*()-+={}[]| :;\"\\<>,?/\0"
@@ -56,12 +56,12 @@ typedef enum e_type_token
  */
 typedef struct s_token
 {
-	t_type_t		type;	// the token type, e.g. WORD, PIPE, REDIRECT
-	int				n_cmds;	// number of commands
-	int				n_tokens; // number of tokens
-	char			*value; // the value of the token, eg "ls", ">", "file.txt"
-	char			**cmd; //the command split by spaces and parsed
-	struct s_token	*next_token;	// pointer to the next token
+	t_type_t		type;
+	int				n_cmds;
+	int				n_tokens;
+	char			*value;
+	char			**cmd;
+	struct s_token	*next_token;
 }	t_token;
 
 typedef struct s_shell
@@ -70,7 +70,7 @@ typedef struct s_shell
 	char	*prompt;
 	int		exit_status;
 	int		last_status;
-	char	**paths; // saves the paths of the $PATH variable in a matrix
+	char	**paths;
 	t_token	*h_token;
 }	t_shell;
 
