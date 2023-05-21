@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:36:18 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/13 17:49:56 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/21 17:41:39 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	handle_token(t_shell *shell)
 	else if (*input != 0)
 	{
 		add_history(input);
-		if (check_quotes(input) == 0)
+		if (check_input(input) == 0 && check_quotes(input) == 0)
 		{
 			lexer(input, shell);
 			ft_freethis(&input, NULL);
@@ -41,9 +41,8 @@ static void	handle_token(t_shell *shell)
 			if (!shell->exit_status)
 				execute_token(shell);
 		}
-		else
-			ft_freethis(&input, NULL);
 	}
+	ft_freethis(&input, NULL);
 	free_token(shell->h_token);
 	free_paths(shell->paths);
 }

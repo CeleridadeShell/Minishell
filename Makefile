@@ -6,7 +6,7 @@
 #    By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 19:31:21 by mcarecho          #+#    #+#              #
-#    Updated: 2023/05/13 18:01:18 by ccamargo         ###   ########.fr        #
+#    Updated: 2023/05/21 17:43:57 by ccamargo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,20 +21,42 @@ HEADER			= minishell.h
 HEADER_PATH		= $(addprefix $(HEADER_DIR), $(HEADER))
 
 SRC_DIR			= ./src/
-SRC				=	*.c \
-					closing/*.c \
-					errors/*.c \
-					initialization/*.c \
-					signals/*.c \
-					utils/*.c \
-					tokenization/*.c \
-					builtins/*.c \
-					execution/*.c
+SRC				=	main.c \
+					closing/close_utils.c \
+					errors/errors.c \
+					errors/errors_2.c \
+					initialization/initialization_utils.c \
+					signals/signals_utils.c \
+					signals/signals_utils_2.c \
+					utils/cmd_var_expansion.c \
+					utils/cmd_var_expansion_2.c \
+					utils/shell_utils.c \
+					utils/token_utils.c \
+					tokenization/token.c \
+					tokenization/split_cmd.c \
+					tokenization/parser.c \
+					tokenization/normalize_lexer.c \
+					tokenization/lexer.c \
+					tokenization/check_symbol.c \
+					builtins/built_in_parser.c \
+					builtins/cd_built_in.c \
+					builtins/echo_built_in.c \
+					builtins/env_built_in.c \
+					builtins/exit_built_in.c \
+					builtins/export_built_in.c \
+					builtins/export_built_in_2.c \
+					builtins/pwd_built_in.c \
+					builtins/unset_built_in.c \
+					execution/redirect_infile.c \
+					execution/redirect_output.c \
+					execution/run_command.c \
+					execution/set_fds.c \
+					execution/token_execution.c
 
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
 
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -g3 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize=null -fno-sanitize=alignment
+CFLAGS			= -Wall -Wextra -Werror
 CLINK			= -lft -lreadline
 
 BIN				= ./bin/
