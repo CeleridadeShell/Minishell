@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:29:18 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/05/18 20:24:23 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/21 17:52:24 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	search_env_vars(char **str, t_shell *shell, int i)
 	else
 		j += env_var - &str[0][i + 1];
 	found_var = ft_substr(str[0], i + 1, j);
-	env_var = ft_strtrim(found_var, "\"");
+	env_var = ft_strtrim(found_var, "\"\'");
 	j = ft_strlen(env_var);
 	ft_freethis(&found_var, NULL);
 	found_var = find_envp_field(shell, env_var);
